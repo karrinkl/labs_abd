@@ -1,0 +1,20 @@
+column,rank,value,count,share_pct
+transaction_type,1,payment,205050,41.83
+transaction_type,2,transfer,117809,24.03
+transaction_type,3,withdrawal,78037,15.92
+transaction_type,4,deposit,58386,11.91
+transaction_type,5,refund,29183,5.95
+currency,1,RUB,306034,62.43
+currency,2,USD,73770,15.05
+currency,3,EUR,67091,13.69
+currency,4,CNY,43279,8.83
+city,1,Moscow,144087,29.4
+city,2,Saint Petersburg,78133,15.94
+city,3,Novosibirsk,39632,8.09
+city,4,Yekaterinburg,38446,7.84
+city,5,Kazan,34268,6.99
+device_type,1,mobile,225683,46.04
+device_type,2,atm,107486,21.93
+device_type,3,desktop,90397,18.44
+device_type,4,pos_terminal,42400,8.65
+device_type,5,tablet,22530,4.6

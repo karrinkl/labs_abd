@@ -1,0 +1,13 @@
+{
+  "spark_version": "4.0.4",
+  "python": "3.13.16",
+  "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+  "java_version": "21.0.12.1",
+  "java_vendor": "Ubuntu",
+  "master": "local[*]",
+  "default_parallelism": 4,
+  "app_id": "local-1792446033807",
+  "spark_ui": "<local>",
+  "shuffle_partitions": "4",
+  "kafka_package": "org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.4"
+}

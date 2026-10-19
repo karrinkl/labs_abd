@@ -1,0 +1,35 @@
+# НЕОБЯЗАТЕЛЬНЫЙ локальный стенд: однонодовый Apache Kafka (KRaft) с SSL и
+# обязательной клиентской аутентификацией по сертификату — как у Aiven.
+# Нужен только для проверки кода на Arch Linux без облака (pytest -m integration).
+# Порядок: ./gen_certs.sh && docker compose up -d
+services:
+  kafka:
+    image: ${KAFKA_IMAGE:-apache/kafka:3.9.1}
+    container_name: lab3-kafka-ssl
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./certs:/etc/kafka/secrets:ro
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: SSL://0.0.0.0:9093,CONTROLLER://localhost:9094
+      KAFKA_ADVERTISED_LISTENERS: SSL://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,SSL:SSL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: SSL
+      # образ apache/kafka читает хранилища и пароли из файлов в /etc/kafka/secrets
+      KAFKA_SSL_KEYSTORE_FILENAME: broker.keystore.p12
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: broker_creds
+      KAFKA_SSL_KEY_CREDENTIALS: broker_creds
+      KAFKA_SSL_KEYSTORE_TYPE: PKCS12
+      KAFKA_SSL_TRUSTSTORE_FILENAME: broker.truststore.p12
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: broker_creds
+      KAFKA_SSL_TRUSTSTORE_TYPE: PKCS12
+      KAFKA_SSL_CLIENT_AUTH: required
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_NUM_PARTITIONS: 2

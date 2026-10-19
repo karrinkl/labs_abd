@@ -1,0 +1,31 @@
+dimension,value,tx_count,amount_eur_sum,avg_amount_eur
+city,Moscow,144087,19084829.27,132.45
+city,Saint Petersburg,78133,9268770.06,118.63
+city,Novosibirsk,39632,4019600.97,101.42
+city,Yekaterinburg,38446,4027168.41,104.75
+city,Kazan,34268,3519214.94,102.7
+city,Krasnodar,30391,3102275.62,102.08
+city,Nizhny Novgorod,29594,3055515.89,103.25
+city,Samara,24733,2546840.48,102.97
+city,Rostov-on-Don,24196,2428790.1,100.38
+city,Vladivostok,19856,2099125.73,105.72
+city,Kaliningrad,15176,1471627.96,96.97
+city,Tomsk,9873,1024509.09,103.77
+city,Unknown,1789,193052.82,107.91
+currency,RUB,306034,34858777.03,113.9
+currency,USD,73770,8345592.7,113.13
+currency,EUR,67091,7637854.41,113.84
+currency,CNY,43279,4999097.2,115.51
+device_type,mobile,225683,26591504.32,117.83
+device_type,atm,107486,10655018.01,99.13
+device_type,desktop,90397,10669146.84,118.03
+device_type,pos_terminal,42400,5055633.9,119.24
+device_type,tablet,22530,2662660.67,118.18
+device_type,unknown,1678,207357.6,123.57
+total,all,490174,55841321.34,113.92
+transaction_type,payment,205050,5930980.21,28.92
+transaction_type,transfer,117809,20296693.78,172.28
+transaction_type,withdrawal,78037,6307736.17,80.83
+transaction_type,deposit,58386,22503593.41,385.43
+transaction_type,refund,29183,609704.08,20.89
+transaction_type,unknown,1709,192613.69,112.71

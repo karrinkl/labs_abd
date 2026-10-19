@@ -1,0 +1,34 @@
+# Секреты: сертификаты, ключи, хранилища, пароли
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.jks
+*.keystore
+*.truststore
+.env
+kafka_secrets/
+local_kafka/certs/
+
+# Окружения Python и кэш
+.venv/
+.venv-spark/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Данные и рабочие каталоги (создаются генератором и Spark); примеры в examples/ хранятся
+/data/
+/lab3_data/
+/lab3_results/
+/lab3_intermediate/
+/lab3_work/
+/local_run/
+checkpoints/
+spark-warehouse/
+metastore_db/
+derby.log
+*.crc
+build/

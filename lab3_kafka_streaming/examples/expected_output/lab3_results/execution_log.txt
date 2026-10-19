@@ -1,0 +1,19 @@
+2026-10-19 22:03:02 INFO ==== Запуск блокнота ЛР3; среда=local; base_dir=<BASE_DIR>
+2026-10-19 22:03:11 INFO Сгенерирован raw_data.csv: 505000 строк, 40.5 МБ
+2026-10-19 22:03:11 INFO Пакет для Kafka: 310 сообщений (300 корректных)
+2026-10-19 22:03:31 INFO SparkSession: Spark 4.0.4, master local[*], app local-1792447408928, kafka package org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.4
+2026-10-19 22:03:37 INFO Прочитан raw_data.csv: 505000 строк x 9 столбцов
+2026-10-19 22:04:02 INFO Очистка: 505000 -> 490174 строк
+2026-10-19 22:04:20 INFO История сохранена: <BASE_DIR>/lab3_intermediate/clean_history.parquet; агрегаты по измерениям: 30 строк
+2026-10-19 22:04:21 INFO SSL настроен: {'bootstrap': 'loca***', 'auth_mode': 'certificate', 'secrets_dir': '<SECRETS_DIR>', 'truststore': 'client.truststore.p12', 'keystore': 'client.keystore.p12'}
+2026-10-19 22:04:22 INFO Kafka доступна: {'brokers': 1, 'topic': 'bank-transactions-v2', 'partitions': 2, 'replicas_per_partition': [1]}
+2026-10-19 22:04:29 INFO Запущены потоки: accepted_stream (746db5a7-0a93-4d2c-9bdb-7357d252bbad), stream_type_counts (16777436-5d82-43a9-828e-8490c4f14e8b); startingOffsets=earliest, trigger=5s
+2026-10-19 22:04:29 INFO batch 0: пустой микропакет — новых сообщений нет
+2026-10-19 22:04:44 INFO Отправлено в Kafka: {'sent': 310, 'delivered': 310, 'failed': 0, 'partitions': {0: {'min_offset': 0, 'max_offset': 156, 'count': 157}, 1: {'min_offset': 0, 'max_offset': 152, 'count': 153}}}
+2026-10-19 22:04:53 INFO batch 1: получено 310, принято 300, отклонено 10 {'unknown_currency': 1, 'non_positive_amount': 1, 'duplicate_in_batch': 3, 'missing_client_id': 1, 'invalid_json': 2, 'invalid_timestamp': 1, 'invalid_amount_format': 1}
+2026-10-19 22:04:54 INFO Итоги обновлены: total 490174 -> 490474
+2026-10-19 22:05:03 INFO batch 2: получено 310, принято 0, отклонено 310 {'unknown_currency': 1, 'duplicate_already_processed': 300, 'non_positive_amount': 1, 'duplicate_in_batch': 3, 'missing_client_id': 1, 'invalid_json': 2, 'invalid_timestamp': 1, 'invalid_amount_format': 1}
+2026-10-19 22:05:04 INFO Остановка потока accepted_stream (746db5a7-0a93-4d2c-9bdb-7357d252bbad)
+2026-10-19 22:05:04 INFO Остановка потока stream_type_counts (16777436-5d82-43a9-828e-8490c4f14e8b)
+2026-10-19 22:05:04 INFO Потоки остановлены; рабочий каталог скопирован в <BASE_DIR>/lab3_intermediate/work_backup
+2026-10-19 22:05:04 INFO Самопроверка: 16 PASS из 16

@@ -1,0 +1,22 @@
+step,rows,description
+0_raw_rows,505000,строк в исходном CSV (без заголовка)
+1_full_duplicates_removed,3558,удалены полные дубликаты
+2_rejected_missing_currency,1294,отклонено (одна причина на строку)
+2_rejected_missing_timestamp,1285,отклонено (одна причина на строку)
+2_rejected_missing_client_id,1256,отклонено (одна причина на строку)
+2_rejected_missing_transaction_id,1251,отклонено (одна причина на строку)
+2_rejected_missing_amount,1230,отклонено (одна причина на строку)
+2_rejected_non_positive_amount,1060,отклонено (одна причина на строку)
+2_rejected_unknown_currency,515,отклонено (одна причина на строку)
+2_rejected_invalid_amount_format,506,отклонено (одна причина на строку)
+2_rejected_timestamp_out_of_range,494,отклонено (одна причина на строку)
+2_rejected_amount_too_large,491,отклонено (одна причина на строку)
+2_rejected_invalid_timestamp,478,отклонено (одна причина на строку)
+3_duplicate_transaction_id_removed,1408,повтор transaction_id с другим оформлением
+4_clean_rows,490174,строк после очистки
+fix_city_set_unknown,1789,исправлено в принятых строках (не удаление)
+fix_city_normalized,3934,исправлено в принятых строках (не удаление)
+fix_currency_case_fixed,3195,исправлено в принятых строках (не удаление)
+fix_timestamp_reformatted,3312,исправлено в принятых строках (не удаление)
+fix_type_set_unknown,1709,исправлено в принятых строках (не удаление)
+fix_device_set_unknown,1678,исправлено в принятых строках (не удаление)

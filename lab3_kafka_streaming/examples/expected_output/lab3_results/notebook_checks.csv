@@ -1,0 +1,17 @@
+check,result,detail
+CSV содержит все обязательные поля,PASS,"transaction_id,client_id,transaction_type,amount,currency,city,device_type,timestamp,fee"
+масштаб данных ~500 000 строк,PASS,505000
+обнаружены пропуски,PASS,
+обнаружены дубликаты,PASS,3558
+очистка: баланс строк сходится,PASS,505000 -> 490174
+SparkSession создана,PASS,4.0.4
+сумма по городам = числу очищенных строк,PASS,490174
+подключение к Kafka,PASS,"{""brokers"": 1, ""topic"": ""bank-transactions-v2"", ""partitions"": 2, ""replicas_per_partition"": [1]}"
+сообщения доставлены,PASS,310
+сообщения прочитаны из топика,PASS,310
+Spark обработал новые транзакции,PASS,300/300
+итоги изменились на число новых принятых,PASS,300 (ожидалось 300)
+битый JSON отклонён,PASS,
+сообщение без обязательного поля отклонено,PASS,
+повторы отклонены,PASS,
+результаты сохранены в Drive,PASS,

@@ -1,0 +1,12 @@
+{
+  "file": "<BASE_DIR>/lab3_data/new_transactions.jsonl",
+  "seed": 2026,
+  "batch_tag": "B001",
+  "valid_transactions": 300,
+  "invalid_transactions": 5,
+  "repeated_messages": 3,
+  "malformed_json_lines": 2,
+  "total_messages": 310,
+  "expected_accepted": 300,
+  "start": "2026-01-01"
+}

@@ -1,0 +1,6 @@
+# Локальные зависимости (Arch Linux, системный Python 3.14 в .venv).
+# Нужны для: producer.py (отправка в Aiven с ноутбука), тестов без Spark.
+# В Google Colab PySpark 4.0.4 и Java 21 уже предустановлены, а confluent-kafka
+# блокнот устанавливает сам.
+confluent-kafka==2.16.0
+pytest==9.1.1

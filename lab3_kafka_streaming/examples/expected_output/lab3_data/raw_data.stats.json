@@ -1,0 +1,62 @@
+{
+  "file": "<BASE_DIR>/lab3_data/raw_data.csv",
+  "seed": 42,
+  "period": [
+    "2025-01-01",
+    "2026-01-01"
+  ],
+  "fields": [
+    "transaction_id",
+    "client_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "city",
+    "device_type",
+    "timestamp",
+    "fee"
+  ],
+  "base_rows": 500000,
+  "exact_duplicates_added": 3503,
+  "partial_duplicates_added": 1497,
+  "total_rows_in_file": 505000,
+  "rows_with_missing_value": 9992,
+  "missing_by_field": {
+    "amount": 1229,
+    "city": 1273,
+    "client_id": 1252,
+    "currency": 1294,
+    "device_type": 1185,
+    "timestamp": 1285,
+    "transaction_id": 1242,
+    "transaction_type": 1232
+  },
+  "rows_with_invalid_value": 5089,
+  "invalid_by_kind": {
+    "huge_amount": 493,
+    "malformed_timestamp": 480,
+    "negative_amount": 518,
+    "non_numeric_amount": 508,
+    "timestamp_out_of_range": 495,
+    "unknown_city": 532,
+    "unknown_currency": 518,
+    "unknown_device": 507,
+    "unknown_type": 492,
+    "zero_amount": 546
+  },
+  "rows_with_fixable_deviation": 9953,
+  "fixable_by_kind": {
+    "case_and_spaces": 3322,
+    "iso_timestamp": 3371,
+    "lowercase_currency": 3260
+  },
+  "rates": {
+    "missing": 0.02,
+    "invalid": 0.01,
+    "fixable": 0.02,
+    "duplicate": 0.01,
+    "partial_share": 0.3
+  },
+  "file_size_mb": 40.55,
+  "seconds": 10.09
+}

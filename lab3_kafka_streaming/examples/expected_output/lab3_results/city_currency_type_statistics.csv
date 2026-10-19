@@ -1,0 +1,31 @@
+city,currency,transaction_type,tx_count,amount_eur_sum,amount_eur_avg,fee_eur_sum
+Moscow,RUB,payment,37547,1255145.38,33.43,0.0
+Moscow,RUB,transfer,21714,4397968.98,202.54,21989.8
+Saint Petersburg,RUB,payment,20258,605254.3,29.88,0.0
+Moscow,RUB,withdrawal,14459,1360703.03,94.11,13606.8
+Saint Petersburg,RUB,transfer,11499,2089811.63,181.74,10449.18
+Moscow,RUB,deposit,10614,4733761.74,445.99,0.0
+Yekaterinburg,RUB,payment,10171,269686.51,26.52,0.0
+Novosibirsk,RUB,payment,10068,257913.34,25.62,0.0
+Kazan,RUB,payment,9107,237169.15,26.04,0.0
+Moscow,USD,payment,8963,306619.52,34.21,0.0
+Moscow,EUR,payment,8269,283275.17,34.26,0.0
+Krasnodar,RUB,payment,7861,202243.86,25.73,0.0
+Saint Petersburg,RUB,withdrawal,7682,641956.8,83.57,6419.69
+Nizhny Novgorod,RUB,payment,7523,196243.98,26.09,0.0
+Samara,RUB,payment,6590,171413.04,26.01,0.0
+Rostov-on-Don,RUB,payment,6373,166479.81,26.12,0.0
+Novosibirsk,RUB,transfer,6007,909398.89,151.39,4547.16
+Saint Petersburg,RUB,deposit,5850,2329221.17,398.16,0.0
+Yekaterinburg,RUB,transfer,5791,890159.04,153.71,4450.79
+Moscow,RUB,refund,5377,131153.35,24.39,0.0
+Moscow,CNY,payment,5358,188108.49,35.11,0.0
+Vladivostok,RUB,payment,5270,142695.97,27.08,0.0
+Kazan,RUB,transfer,5215,796420.39,152.72,3982.03
+Moscow,USD,transfer,5202,1056856.85,203.16,5284.29
+Saint Petersburg,USD,payment,4959,149037.3,30.05,0.0
+Moscow,EUR,transfer,4775,944284.28,197.76,4721.56
+Saint Petersburg,EUR,payment,4509,138236.2,30.66,0.0
+Krasnodar,RUB,transfer,4441,688037.14,154.93,3440.06
+Nizhny Novgorod,RUB,transfer,4425,682710.33,154.28,3413.39
+Kaliningrad,RUB,payment,4080,99234.24,24.32,0.0

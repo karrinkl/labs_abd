@@ -1,0 +1,7 @@
+transaction_type,tx_count,amount_eur_sum,amount_eur_avg,fee_eur_sum
+payment,205050,5930980.21,28.92,0.0
+transfer,117809,20296693.78,172.28,101484.25
+withdrawal,78037,6307736.17,80.83,63078.47
+deposit,58386,22503593.41,385.43,0.0
+refund,29183,609704.08,20.89,0.0
+unknown,1709,192613.69,112.71,568.01

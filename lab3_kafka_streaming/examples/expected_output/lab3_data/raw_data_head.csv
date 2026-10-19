@@ -1,0 +1,6 @@
+transaction_id,client_id,transaction_type,amount,currency,city,device_type,timestamp,fee
+T000000001,C0011966,transfer,19606.82,RUB,Samara,mobile,2025-07-19 22:30:14,98.03
+T000000002,C0004770,transfer,2165.66,CNY,Moscow,atm,2025-08-31 20:17:53,10.83
+T000000003,C0013873,deposit,19395.52,RUB,Saint Petersburg,mobile,2025-04-19 10:24:24,0.00
+T000000004,C0002761,transfer,13020.94,RUB,Samara,mobile,2025-04-05 10:39:54,65.10
+T000000005,C0009286,payment,1176.72,RUB,Moscow,pos_terminal,2025-04-16 23:40:51,0.00

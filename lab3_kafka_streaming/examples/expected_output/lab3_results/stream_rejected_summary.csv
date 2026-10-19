@@ -1,0 +1,8 @@
+reject_reason,count
+duplicate_in_batch,3
+invalid_amount_format,1
+invalid_json,2
+invalid_timestamp,1
+missing_client_id,1
+non_positive_amount,1
+unknown_currency,1

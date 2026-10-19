@@ -1,0 +1,12 @@
+# НЕОБЯЗАТЕЛЬНО: локальный запуск Spark-тестов и блокнота на Arch Linux.
+# PySpark 4.0.4 официально поддерживает Python 3.9–3.13 (в Arch системный Python 3.14),
+# поэтому окружение создаётся через uv с Python 3.13:
+#   uv venv --python 3.13 .venv-spark && source .venv-spark/bin/activate
+#   uv pip install -r requirements-spark.txt
+# Требуется Java 17+: sudo pacman -S jdk21-openjdk
+-r requirements.txt
+pyspark==4.0.4
+pandas==3.0.6
+nbformat==5.11.1
+nbclient==0.11.0
+ipykernel==7.4.0

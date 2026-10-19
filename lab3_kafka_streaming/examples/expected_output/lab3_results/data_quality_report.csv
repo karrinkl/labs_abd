@@ -1,0 +1,25 @@
+check,column,rows,share_pct,description
+missing_transaction_id,transaction_id,1259,0.249,NULL или пустая строка
+missing_client_id,client_id,1261,0.25,NULL или пустая строка
+missing_transaction_type,transaction_type,1242,0.246,NULL или пустая строка
+missing_amount,amount,1235,0.245,NULL или пустая строка
+missing_currency,currency,1307,0.259,NULL или пустая строка
+missing_city,city,1289,0.255,NULL или пустая строка
+missing_device_type,device_type,1198,0.237,NULL или пустая строка
+missing_timestamp,timestamp,1299,0.257,NULL или пустая строка
+missing_fee,fee,0,0.0,NULL или пустая строка
+amount_not_numeric,amount,513,0.102,не число
+amount_non_positive,amount,1066,0.211,сумма <= 0
+amount_too_large,amount,497,0.098,"сумма > 10,000,000"
+timestamp_unparseable,timestamp,488,0.097,не разбирается
+timestamp_iso_format,timestamp,3403,0.674,формат ISO с 'T' (исправимо)
+timestamp_out_of_range,timestamp,502,0.099,вне [2025-01-01; 2026-01-01)
+currency_unknown,currency,521,0.103,нет в справочнике
+currency_wrong_case,currency,3270,0.648,регистр (исправимо)
+city_unknown,city,536,0.106,нет в справочнике
+city_needs_normalization,city,4817,0.954,регистр/пробелы (исправимо)
+transaction_type_unknown,transaction_type,494,0.098,нет в справочнике
+device_type_unknown,device_type,508,0.101,нет в справочнике
+device_type_needs_normalization,device_type,3345,0.662,регистр (исправимо)
+full_duplicate_rows,*,3558,0.705,лишние копии полностью совпадающих строк
+duplicated_transaction_ids,transaction_id,4423,,id встречается >1 раза (строк с ними: 9406)

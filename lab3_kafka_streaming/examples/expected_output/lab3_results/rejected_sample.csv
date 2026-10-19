@@ -1,0 +1,51 @@
+transaction_id,client_id,transaction_type,amount,currency,city,device_type,timestamp,fee,reject_reason
+T000030482,C0012799,deposit,733384560.00,RUB,Yekaterinburg,pos_terminal,2025-05-22 20:21:40,0.00,amount_too_large
+T000069146,C0008596,transfer,57130332.27,CNY,Nizhny Novgorod,mobile,2025-07-12 13:18:17,5.50,amount_too_large
+T000034518,C0000557,transfer,490586202.88,RUB,Novosibirsk,mobile,2025-02-09 12:08:49,86.78,amount_too_large
+T000030272,C0016741,transfer,92050140.00,RUB,Samara,mobile,2025-03-21 21:00:04,70.72,amount_too_large
+T000037653,C0002987,deposit,110326050.02,USD,Krasnodar,mobile,2025-09-16 20:28:35,0.00,amount_too_large
+T000012755,C0008539,payment,446532222.15,RUB,Moscow,mobile,2025-03-07 11:20:56,0.00,amount_too_large
+T000038648,C0001679,refund,643042429.73,RUB,Saint Petersburg,desktop,2025-04-26 10:25:24,0.00,amount_too_large
+T000013591,C0001149,deposit,400605652.61,EUR,Saint Petersburg,mobile,2025-06-05 01:20:32,0.00,amount_too_large
+T000041452,C0013734,withdrawal,711727501.09,RUB,Saint Petersburg,atm,2025-02-23 14:23:17,176.08,amount_too_large
+T000022047,C0006412,transfer,892470749.98,RUB,Nizhny Novgorod,tablet,2025-07-21 14:05:37,32.06,amount_too_large
+T000043810,C0000138,payment,218209596.29,USD,Krasnodar,desktop,2025-09-14 14:53:27,0.00,amount_too_large
+T000030536,C0004344,payment,606362751.84,RUB,Kazan,desktop,2025-12-14 19:15:59,0.00,amount_too_large
+T000046746,C0006833,deposit,135456962.05,RUB,Moscow,tablet,2025-05-05 22:17:04,0.00,amount_too_large
+T000034575,C0010434,payment,618036298.31,RUB,Moscow,mobile,2025-11-20 18:45:17,0.00,amount_too_large
+T000047307,C0011831,payment,434838193.06,RUB,Nizhny Novgorod,mobile,2025-06-02 19:20:43,0.00,amount_too_large
+T000041210,C0008799,payment,291294024.58,RUB,Moscow,tablet,2025-04-07 19:23:48,0.00,amount_too_large
+T000048839,C0003256,payment,790802094.78,RUB,Krasnodar,mobile,2025-06-27 15:29:15,0.00,amount_too_large
+T000045459,C0015813,transfer,840400207.95,RUB,Yekaterinburg,mobile,2025-09-06 11:15:27,24.96,amount_too_large
+T000049288,C0001993,transfer,782707289.43,RUB,Kazan,mobile,2025-08-21 12:35:49,21.77,amount_too_large
+T000049531,C0001464,payment,63975762.76,RUB,Kazan,mobile,2025-07-09 20:25:01,0.00,amount_too_large
+T000052659,C0016197,withdrawal,877572497.94,RUB,Kazan,atm,2025-02-28 15:30:17,250.40,amount_too_large
+T000000322,C0000661,deposit,95917302.91,RUB,Rostov-on-Don,desktop,2025-12-04 08:16:31,0.00,amount_too_large
+T000003472,C0010375,withdrawal,785888306.89,RUB,Moscow,mobile,2025-10-14 09:37:52,42.72,amount_too_large
+T000074705,C0000401,payment,827228204.42,RUB,Samara,desktop,2025-12-14 13:38:38,0.00,amount_too_large
+T000076203,C0009717,transfer,546600894.71,RUB,Saint Petersburg,mobile,2025-01-19 11:05:56,6.71,amount_too_large
+T000079233,C0000794,refund,222614273.23,USD,Saint Petersburg,mobile,2025-11-20 07:03:44,0.00,amount_too_large
+T000080223,C0015725,withdrawal,55031717.81,EUR,Samara,atm,2025-12-10 12:02:15,0.33,amount_too_large
+T000080735,C0004252,transfer,127358124.07,RUB,Moscow,mobile,2025-09-21 11:01:43,71.50,amount_too_large
+T000085981,C0016972,withdrawal,510020776.39,USD,Krasnodar,desktop,2025-11-22 13:55:38,1.27,amount_too_large
+T000088976,C0019219,payment,396219734.94,EUR,Novosibirsk,desktop,2025-09-30 12:31:32,0.00,amount_too_large
+T000089496,C0008558,withdrawal,472038800.44,RUB,Novosibirsk,desktop,2025-09-02 08:21:22,40.83,amount_too_large
+T000096747,C0018589,transfer,854943301.35,RUB,Moscow,desktop,2025-08-30 19:48:45,102.40,amount_too_large
+T000097940,C0011449,payment,176934989.62,RUB,Yekaterinburg,mobile,2025-04-20 16:43:10,0.00,amount_too_large
+T000105841,C0010390,transfer,302991986.12,RUB,MOSCOW,DESKTOP,2025-04-29 22:31:05,59.43,amount_too_large
+T000107699,C0009339,withdrawal,93818466.32,RUB,Moscow,mobile,2025-11-03 08:21:34,27.13,amount_too_large
+T000111762,C0008702,withdrawal,60976303.82,RUB,Yekaterinburg,atm,2025-06-03 09:09:59,57.22,amount_too_large
+T000124251,C0003522,payment,712383795.70,RUB,Rostov-on-Don,desktop,2025-03-30 16:38:14,0.00,amount_too_large
+T000126654,C0000598,payment,715357141.58,RUB,Moscow,mobile,2025-07-13 08:29:36,0.00,amount_too_large
+T000126914,C0014797,refund,680614363.56,RUB,Moscow,mobile,2025-03-15 15:03:26,0.00,amount_too_large
+T000131929,C0008834,deposit,293474186.46,RUB,Moscow,mobile,2025-05-06 13:11:32,0.00,amount_too_large
+T000134679,C0012236,withdrawal,366657120.86,RUB,Saint Petersburg,atm,2025-01-10 21:19:09,203.64,amount_too_large
+T000135586,C0009122,transfer,120210976.63,USD,Moscow,mobile,2025-11-21 21:04:37,0.07,amount_too_large
+T000000017,C0000927,deposit,328696845.04,RUB,Moscow,tablet,2025-11-25 22:06:40,0.00,amount_too_large
+T000006503,C0015853,withdrawal,265728507.65,RUB,Yekaterinburg,atm,2025-09-29 18:41:41,158.02,amount_too_large
+T000007354,C0003662,payment,490656178.24,RUB,Saint Petersburg,mobile,2025-08-23 20:59:57,0.00,amount_too_large
+T000016077,C0017457,refund,142158570.65,RUB,Novosibirsk,mobile,2025-02-22 17:57:01,0.00,amount_too_large
+T000019803,C0012397,refund,864092095.32,RUB,Rostov-on-Don,desktop,2025-07-10 13:54:04,0.00,amount_too_large
+T000024325,C0002430,deposit,440570842.30,RUB,Vladivostok,desktop,2025-06-05 15:43:59,0.00,amount_too_large
+T000068687,C0008039,transfer,621846675.50,RUB,Novosibirsk,atm,2025-01-01 16:31:36,10.85,amount_too_large
+T000004280,C0011404,withdrawal,569813888.22,USD,Nizhny Novgorod,atm,2025-12-20 19:40:46,0.55,amount_too_large
