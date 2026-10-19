@@ -1,0 +1,110 @@
+@startuml c4_container
+' C4, уровень 2 — Container
+' Вариант №2: система обработки clickstream-данных для оптимизации воронки продаж.
+' Контейнер C4 = отдельно запускаемое приложение или хранилище данных (а не Docker-контейнер).
+' Все названия систем условные, данные синтетические.
+!include <C4/C4_Container>
+
+LAYOUT_TOP_DOWN()
+HIDE_STEREOTYPE()
+skinparam defaultFontName "DejaVu Sans"
+skinparam wrapWidth 230
+skinparam maxMessageSize 170
+
+title C4, уровень 2 (Container): платформа clickstream-аналитики воронки продаж (вариант №2)
+
+' ---------- Внешние источники ----------
+System_Ext(website, "Веб-сайт интернет-магазина", "Браузерный JS-трекер и backend, пишущий JSON-логи")
+System_Ext(tracking, "Система веб-трекинга", "Внешний сервис веб-аналитики")
+System_Ext(abplatform, "A/B-платформа", "Эксперименты и назначения вариантов")
+System_Ext(crm, "CRM", "Заказы, оплаты, отмены")
+
+System_Boundary(platform, "Платформа clickstream-аналитики") {
+
+  ' ---------- Приём данных (ingestion) ----------
+  Container(collector, "Сервис сбора событий", "Go, HTTP/JSON; Docker-образ в Kubernetes", "Принимает JSON-события, проверяет формат и размер, добавляет received_at и ingest_id, публикует в Kafka идемпотентным продюсером")
+  Container(logship, "Агент доставки логов", "Fluent Bit", "Читает JSON-логи серверов сайта и публикует их в Kafka")
+  Container(batchingest, "Пакетный загрузчик", "Apache Spark (batch), PySpark", "Инкрементально выгружает заказы CRM и параметры A/B-экспериментов в Bronze")
+  ContainerQueue(kafka, "Брокер сообщений", "Apache Kafka (KRaft)", "Топики clickstream.raw, weblogs.raw, clickstream.dlq; хранение 7 суток, партиционирование по user/anonymous id")
+
+  ' ---------- Обработка ----------
+  Container(stream, "Потоковый обработчик", "Apache Spark Structured Streaming", "Валидация JSON Schema, приведение времени к UTC, дедупликация по event_id с watermark, запись Bronze/Silver, отбраковка в DLQ, оперативные агрегаты")
+  Container(batchproc, "Пакетный обработчик", "Apache Spark (batch), Spark SQL", "Сессионизация, связывание событий с заказами CRM, этапы и конверсии воронки, анализ A/B-тестов, MERGE поздних данных, пересчёт истории")
+  Container(orch, "Оркестратор", "Apache Airflow", "Расписание и зависимости пакетных задач, backfill и повторная обработка")
+
+  ' ---------- Хранение (Lakehouse) ----------
+  Boundary(lakehouse, "Lakehouse: таблицы Apache Iceberg (формат файлов Parquet)") {
+    ContainerDb(bronze, "Bronze — исходные данные", "Iceberg-таблицы", "События, логи и выгрузки CRM/A-B «как есть» + метаданные приёма; полная история для повторной обработки")
+    ContainerDb(silver, "Silver — очищенные данные", "Iceberg-таблицы", "Валидные дедуплицированные события в UTC, сессии, заказы, назначения вариантов")
+    ContainerDb(gold, "Gold — аналитические витрины", "Iceberg-таблицы", "Агрегаты воронки по дням и сегментам, конверсии, время между этапами, итоги A/B-тестов")
+    Container(catalog, "Каталог таблиц", "Iceberg REST Catalog", "Хранит указатели на актуальные метаданные таблиц, обеспечивает атомарные коммиты")
+    ContainerDb(s3, "Объектное хранилище", "S3-совместимое хранилище", "Физически хранит файлы Parquet и метаданные Iceberg (снапшоты, манифесты) всех слоёв Bronze, Silver, Gold")
+  }
+
+  ' ---------- Доступ к данным ----------
+  Container(trino, "SQL-движок", "Trino, Iceberg connector", "Выполняет интерактивные SQL-запросы к Silver и Gold")
+  Container(api, "API метрик", "Python, FastAPI", "REST-эндпоинты агрегированных метрик воронки и A/B-тестов")
+}
+
+' ---------- Внешние потребители и пользователи ----------
+System_Ext(bi, "BI-система", "Apache Superset")
+System_Ext(ml, "ML-сервисы", "Персонализация и прогнозирование")
+System_Ext(apiconsumer, "Внешние потребители API", "Маркетинговая платформа, внутренние сервисы")
+Person(analyst, "Аналитики и продуктовые менеджеры", "Анализ воронки и экспериментов")
+Person(de, "Дата-инженер", "Сопровождение конвейеров")
+
+' ---------- Потоковый ingestion ----------
+Rel(website, collector, "Clickstream-события браузера (JSON-пакеты)", "HTTPS POST")
+Rel(tracking, collector, "События веб-трекинга (JSON)", "HTTPS webhook")
+Rel(website, logship, "JSON-логи сервера", "файлы / stdout")
+Rel(collector, kafka, "Сырые события", "Kafka, acks=all")
+Rel(logship, kafka, "Записи логов", "Kafka")
+Rel(kafka, stream, "Сырые события и логи (чтение по offset)", "Kafka consumer")
+Rel_L(stream, kafka, "Некорректные события + причина ошибки", "топик DLQ")
+
+' ---------- Пакетный ingestion ----------
+Rel(crm, batchingest, "Заказы, оплаты, отмены (инкремент по updated_at)", "JDBC к реплике / REST")
+Rel(abplatform, batchingest, "Параметры экспериментов, назначения вариантов", "REST API, JSON")
+Rel(orch, batchingest, "Запуск по расписанию")
+Rel(orch, batchproc, "Запуск расчётов, backfill")
+
+' ---------- Запись и обработка в Lakehouse ----------
+Rel(stream, bronze, "Исходные события «как есть»", "Iceberg append")
+Rel(stream, silver, "Очищенные события", "Iceberg append")
+Rel(stream, gold, "Оперативные агрегаты (окна 5 мин)", "Iceberg append")
+Rel(batchingest, bronze, "Выгрузки CRM и A/B", "Iceberg append")
+Rel(bronze, batchproc, "Сырые данные для нормализации и пересчёта")
+BiRel(batchproc, silver, "Читает события; записывает сессии, заказы, назначения A/B", "Iceberg read / MERGE")
+Rel(batchproc, gold, "Витрины воронки и A/B-тестов", "Iceberg overwrite партиций")
+Rel(catalog, s3, "Указатель на текущий файл метаданных таблицы")
+Lay_L(silver, bronze)
+Lay_L(gold, silver)
+Lay_D(silver, s3)
+Lay_R(s3, catalog)
+
+' ---------- Потребление ----------
+Rel(gold, trino, "Агрегаты и витрины")
+Rel(silver, trino, "Детальные события для ad-hoc")
+Rel(trino, catalog, "Метаданные и снапшоты таблиц", "REST")
+Rel(trino, api, "Результаты запросов к Gold", "JDBC/HTTP")
+Rel(trino, bi, "Показатели конверсии и воронки", "SQL")
+Rel(api, apiconsumer, "Агрегированные метрики", "REST, JSON")
+Rel(silver, ml, "Сессии и признаки пользователей", "чтение Iceberg (Spark)")
+Rel(analyst, bi, "Дашборды воронки и A/B-тестов")
+Rel(analyst, trino, "Ad-hoc SQL-запросы", "SQL")
+Rel(de, orch, "Управляет задачами, запускает пересчёт истории")
+
+skinparam legendFontColor #000000
+skinparam legendFontSize 13
+skinparam legendBackgroundColor #FFFFFF
+skinparam legendBorderColor #888888
+legend right
+<b>Легенда</b>
+|<#08427B>      | пользователь (роль) |
+|<#438DD5>      | контейнер C4 (приложение / сервис) |
+|<#438DD5>  ▭  | хранилище данных / очередь (контейнер C4) |
+|<#999999>      | внешняя система |
+| - - - | граница системы / логическая группа Lakehouse |
+| → | направление движения данных (для людей — инициатор обращения) |
+endlegend
+@enduml
