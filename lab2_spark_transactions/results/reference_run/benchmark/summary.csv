@@ -1,0 +1,13 @@
+dataset,rows_in_file,file_mb,mode,master,workers,executors,task_slots,executor_memory,driver_memory,input_partitions,shuffle_partitions,repeats,median_s,mean_s,min_s,max_s,stdev_s,session_start_s,speedup_vs_local1,task_time_s_per_run,task_cpu_s_per_run,shuffle_write_mb_per_run,tasks_per_run,peak_executor_heap_mb,client_peak_rss_mb,client_cpu_s,results_match_reference
+data/transactions_test.csv,10100,0.9,local1,local[1],0,0,1,— (задачи в JVM драйвера),1g,1,8,5,1.447,1.493,1.23,1.772,0.2,4.36,1.0,0.33,0.29,0.84,6,365.3,935.4,55.32,True
+data/transactions_test.csv,10100,0.9,local_all,local[*],0,0,4,— (задачи в JVM драйвера),1g,1,8,5,1.399,1.415,1.257,1.656,0.167,4.49,1.03,0.29,0.27,0.84,6,247.3,1047.1,54.09,True
+data/transactions_test.csv,10100,0.9,cluster,spark://spark-master:7077,1,1,2,1g,1g,1,8,5,1.753,1.688,1.367,1.981,0.242,6.42,0.83,0.36,0.32,0.84,6,203.1,753.6,43.27,True
+data/transactions_test.csv,10100,0.9,cluster_1core,spark://spark-master:7077,1,1,1,1g,1g,1,8,5,1.692,1.806,1.472,2.176,0.279,6.39,0.85,0.38,0.3,0.84,6,158.4,688.7,44.53,True
+data/transactions_medium.csv,505000,42.8,local1,local[1],0,0,1,— (задачи в JVM драйвера),1g,2,8,5,9.155,9.125,8.823,9.303,0.199,4.42,1.0,7.79,7.46,43.65,7,544.4,1089.6,111.96,True
+data/transactions_medium.csv,505000,42.8,local_all,local[*],0,0,4,— (задачи в JVM драйвера),1g,4,8,5,3.745,4.031,3.558,5.11,0.631,4.54,2.44,10.1,7.82,43.9,15,394.8,1245.0,121.53,True
+data/transactions_medium.csv,505000,42.8,cluster,spark://spark-master:7077,1,1,2,1g,1g,2,8,5,6.217,6.068,5.601,6.557,0.389,7.08,1.47,8.36,7.59,43.73,9,364.0,698.3,46.58,True
+data/transactions_medium.csv,505000,42.8,cluster_1core,spark://spark-master:7077,1,1,1,1g,1g,2,8,5,8.97,8.882,8.541,9.146,0.25,6.72,1.02,7.36,7.09,43.73,9,351.5,705.7,45.33,True
+data/transactions.csv,2020000,171.0,local1,local[1],0,0,1,— (задачи в JVM драйвера),1g,6,8,5,32.984,33.572,32.409,35.284,1.173,4.74,1.0,31.68,30.41,177.24,13,626.4,1167.3,286.79,True
+data/transactions.csv,2020000,171.0,local_all,local[*],0,0,4,— (задачи в JVM драйвера),1g,6,8,5,16.063,16.468,15.492,17.876,0.95,4.54,2.05,50.49,42.99,177.44,17,934.0,1610.5,359.03,True
+data/transactions.csv,2020000,171.0,cluster,spark://spark-master:7077,1,1,2,1g,1g,6,8,5,19.187,19.545,18.738,20.52,0.839,6.92,1.72,31.55,29.57,177.22,14,802.7,752.9,48.99,True
+data/transactions.csv,2020000,171.0,cluster_1core,spark://spark-master:7077,1,1,1,1g,1g,6,8,5,33.685,33.612,33.261,34.022,0.31,7.49,0.98,31.62,30.25,177.24,14,451.4,717.2,52.1,True

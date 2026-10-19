@@ -1,0 +1,64 @@
+{
+  "file": "data/transactions.csv",
+  "format": "CSV, UTF-8, заголовок, разделитель ','",
+  "seed": 42,
+  "interval_utc": [
+    "2025-01-01",
+    "2026-01-01"
+  ],
+  "fields": [
+    "transaction_id",
+    "client_id",
+    "account_id",
+    "amount",
+    "currency",
+    "city",
+    "transaction_type",
+    "transaction_timestamp",
+    "channel"
+  ],
+  "requested_rates": {
+    "missing_rate": 0.02,
+    "invalid_rate": 0.015,
+    "fixable_rate": 0.02,
+    "duplicate_rate": 0.01,
+    "partial_duplicate_share": 0.4
+  },
+  "clients": 100000,
+  "base_rows": 2000000,
+  "exact_duplicates_added": 11910,
+  "partial_duplicates_added": 8090,
+  "total_rows_in_file": 2020000,
+  "rows_with_missing_value": 39899,
+  "missing_by_field": {
+    "account_id": 4892,
+    "amount": 5013,
+    "city": 4932,
+    "client_id": 5090,
+    "currency": 4925,
+    "transaction_id": 5007,
+    "transaction_timestamp": 4976,
+    "transaction_type": 5064
+  },
+  "rows_with_invalid_value": 29724,
+  "invalid_by_kind": {
+    "malformed_timestamp": 3573,
+    "negative_amount": 3720,
+    "non_numeric_amount": 3735,
+    "timestamp_out_of_range": 3737,
+    "unknown_city": 3686,
+    "unknown_currency": 3669,
+    "unknown_transaction_type": 3797,
+    "zero_amount": 3807
+  },
+  "rows_with_missing_and_invalid": 612,
+  "rows_with_fixable_deviation": 39570,
+  "fixable_by_kind": {
+    "alt_timestamp_format": 13099,
+    "lowercase_currency": 13287,
+    "whitespace_and_case": 13184
+  },
+  "note": "Дубликаты копируют уже записанные строки (вместе с их возможными дефектами), поэтому итоговые числа проблем в файле немного больше базовых счётчиков.",
+  "file_size_mb": 171.03,
+  "generation_seconds": 42.8
+}

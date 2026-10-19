@@ -1,0 +1,297 @@
+$ /opt/spark/bin/spark-submit --master 'local[1]' --driver-memory 1g spark_job.py --data data/transactions.csv --no-write --run-label local1
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/10/19 18:10:15 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+==============================================================================
+1. Spark-приложение
+==============================================================================
+Spark version     : 4.1.3
+Master            : local[1]
+Application ID    : local-1792433416026
+Spark UI драйвера : http://spark-client:4040  (с хоста: http://localhost:4040)
+defaultParallelism: 1
+
+==============================================================================
+2. Чтение исходных данных (явная схема, все поля — строки)
+==============================================================================
+root
+ |-- transaction_id: string (nullable = true)
+ |-- client_id: string (nullable = true)
+ |-- account_id: string (nullable = true)
+ |-- amount: string (nullable = true)
+ |-- currency: string (nullable = true)
+ |-- city: string (nullable = true)
+ |-- transaction_type: string (nullable = true)
+ |-- transaction_timestamp: string (nullable = true)
+ |-- channel: string (nullable = true)
+
++--------------+---------+------------+------+--------+------+----------------+---------------------+-------+
+|transaction_id|client_id|account_id  |amount|currency|city  |transaction_type|transaction_timestamp|channel|
++--------------+---------+------------+------+--------+------+----------------+---------------------+-------+
+|TX0000000001  |CL0021567|ACC000032297|67.19 |EUR     |Paris |payment         |2025-05-14 12:33:38  |branch |
+|TX0000000002  |CL0074734|ACC000112061|305.55|CHF     |Prague|transfer        |2025-06-30 02:34:58  |pos    |
+|TX0000000003  |CL0028237|ACC000042296|188.60|USD     |Berlin|payment         |2025-06-14 23:37:09  |pos    |
+|TX0000000004  |CL0008810|ACC000013203|34.46 |EUR     |Prague|payment         |2025-02-20 14:27:46  |branch |
+|TX0000000005  |CL0059575|ACC000089208|313.83|USD     |Vienna|withdrawal      |2025-10-08 05:11:35  |pos    |
++--------------+---------+------------+------+--------+------+----------------+---------------------+-------+
+only showing top 5 rows
+Исходных строк: 2020000; партиций при чтении: 6
+
+==============================================================================
+3. Проверка качества исходных данных
+==============================================================================
+Исходные значения валюты и типа (с проблемами регистра/пробелов):
++--------+------+
+|currency|count |
++--------+------+
+|EUR     |951345|
+|USD     |431485|
+|GBP     |420377|
+|CHF     |194767|
+|eur     |6313  |
+|usd     |2884  |
+|gbp     |2835  |
+|        |2493  |
+|NULL    |2474  |
+|chf     |1329  |
+|EU      |960   |
+|RUBX    |936   |
++--------+------+
+only showing top 12 rows
++----------------+------+
+|transaction_type|count |
++----------------+------+
+|payment         |900371|
+|withdrawal      |399380|
+|transfer        |398968|
+|deposit         |299073|
+|PAYMENT         |2998  |
+| payment        |2915  |
+|NULL            |2568  |
+|                |2559  |
+| transfer       |1381  |
+|unknown_op      |1357  |
+|WITHDRAWAL      |1357  |
+| withdrawal     |1353  |
++----------------+------+
+only showing top 12 rows
+{
+  "raw_rows": 2020000,
+  "missing_values": {
+    "transaction_id": 5056,
+    "client_id": 5141,
+    "account_id": 4945,
+    "amount": 5075,
+    "currency": 4967,
+    "city": 4974,
+    "transaction_type": 5127,
+    "transaction_timestamp": 5019
+  },
+  "duplicates": {
+    "exact_duplicate_rows": 12103,
+    "transaction_ids_occurring_more_than_once": 16479,
+    "rows_sharing_a_duplicated_transaction_id": 36430
+  },
+  "amount": {
+    "amount_invalid_format": 3762,
+    "amount_negative": 3749,
+    "amount_zero": 3834
+  },
+  "categorical": {
+    "currency_unknown": 3698,
+    "currency_wrong_case": 13361,
+    "city_unrecognized": 3719,
+    "city_needs_normalization": 15931,
+    "transaction_type_unknown": 3812,
+    "transaction_type_needs_normalization": 13269,
+    "channel_missing_or_unknown": 0
+  },
+  "timestamps": {
+    "unparseable": 3608,
+    "alternative_format": 15796,
+    "out_of_range": 3760,
+    "min_parsed": "1999-12-31 23:59:59",
+    "max_parsed": "2031-05-01 12:00:00",
+    "expected_interval_utc": [
+      "2025-01-01",
+      "2026-01-01"
+    ]
+  }
+}
+
+==============================================================================
+4. Очистка данных
+==============================================================================
+{
+  "rows_before_cleaning": 2020000,
+  "removed_exact_duplicates": 12103,
+  "rejected_by_reason": {
+    "non_positive_amount": 7478,
+    "missing_client_id": 5108,
+    "missing_amount": 5039,
+    "missing_transaction_id": 5029,
+    "missing_timestamp": 4959,
+    "missing_account_id": 4918,
+    "missing_currency": 4888,
+    "invalid_amount_format": 3721,
+    "timestamp_out_of_range": 3702,
+    "unknown_currency": 3635,
+    "invalid_timestamp": 3555
+  },
+  "rejected_total": 52032,
+  "removed_duplicate_transaction_id": 7673,
+  "rows_after_cleaning": 1948192,
+  "corrected_in_kept_rows": {
+    "city_missing_filled_unknown": 4881,
+    "city_unrecognized_set_unknown": 3631,
+    "city_case_or_spaces_fixed": 14009,
+    "transaction_type_missing_or_unknown_set_unknown": 8713,
+    "transaction_type_case_or_spaces_fixed": 12797,
+    "currency_case_fixed": 12929,
+    "timestamp_converted_to_standard_format": 12770,
+    "channel_missing_or_unknown_set_unknown": 0
+  },
+  "rows_with_any_correction": 56609,
+  "balance_check": {
+    "formula": "rows_before = exact_duplicates + rejected_total + duplicate_transaction_id + rows_after",
+    "ok": true
+  }
+}
+root
+ |-- transaction_id: string (nullable = true)
+ |-- client_id: string (nullable = true)
+ |-- account_id: string (nullable = true)
+ |-- amount: decimal(18,2) (nullable = true)
+ |-- currency: string (nullable = true)
+ |-- amount_eur: decimal(18,2) (nullable = true)
+ |-- city: string (nullable = true)
+ |-- transaction_type: string (nullable = true)
+ |-- transaction_timestamp: timestamp (nullable = true)
+ |-- channel: string (nullable = true)
+
++--------------+---------+------------+------+--------+----------+------+----------------+---------------------+-------+
+|transaction_id|client_id|account_id  |amount|currency|amount_eur|city  |transaction_type|transaction_timestamp|channel|
++--------------+---------+------------+------+--------+----------+------+----------------+---------------------+-------+
+|TX0000000001  |CL0021567|ACC000032297|67.19 |EUR     |67.19     |Paris |payment         |2025-05-14 12:33:38  |branch |
+|TX0000000002  |CL0074734|ACC000112061|305.55|CHF     |320.83    |Prague|transfer        |2025-06-30 02:34:58  |pos    |
+|TX0000000003  |CL0028237|ACC000042296|188.60|USD     |173.51    |Berlin|payment         |2025-06-14 23:37:09  |pos    |
+|TX0000000004  |CL0008810|ACC000013203|34.46 |EUR     |34.46     |Prague|payment         |2025-02-20 14:27:46  |branch |
+|TX0000000005  |CL0059575|ACC000089208|313.83|USD     |288.72    |Vienna|withdrawal      |2025-10-08 05:11:35  |pos    |
++--------------+---------+------------+------+--------+----------+------+----------------+---------------------+-------+
+only showing top 5 rows
+
+==============================================================================
+5. Фильтрация: amount_eur > 100 EUR
+==============================================================================
+Тип столбца amount_eur: decimal(18,2) — некорректные и неположительные суммы уже исключены на этапе очистки
+Распределение amount_eur: {'p25': '46.08', 'p50': '112.99', 'p75': '316.02', 'p90': '808.01', 'p99': '2985.91', 'min': '0.60', 'max': '31339.44'}
+Записей до фильтрации : 1948192
+Порог x               : 100 EUR
+Записей после фильтра : 1041858 (53.5%)
++--------------+---------+------------+-------+--------+----------+-------+----------------+---------------------+-------+
+|transaction_id|client_id|account_id  |amount |currency|amount_eur|city   |transaction_type|transaction_timestamp|channel|
++--------------+---------+------------+-------+--------+----------+-------+----------------+---------------------+-------+
+|TX0000000002  |CL0074734|ACC000112061|305.55 |CHF     |320.83    |Prague |transfer        |2025-06-30 02:34:58  |pos    |
+|TX0000000003  |CL0028237|ACC000042296|188.60 |USD     |173.51    |Berlin |payment         |2025-06-14 23:37:09  |pos    |
+|TX0000000005  |CL0059575|ACC000089208|313.83 |USD     |288.72    |Vienna |withdrawal      |2025-10-08 05:11:35  |pos    |
+|TX0000000006  |CL0025984|ACC000038930|333.82 |EUR     |333.82    |Unknown|transfer        |2025-03-13 21:28:54  |online |
+|TX0000000008  |CL0062128|ACC000093033|91.51  |GBP     |107.07    |Madrid |withdrawal      |2025-06-05 07:50:55  |pos    |
+|TX0000000009  |CL0020269|ACC000030358|296.53 |CHF     |311.36    |Paris  |deposit         |2025-12-09 00:05:51  |pos    |
+|TX0000000010  |CL0056822|ACC000085155|182.20 |EUR     |182.20    |Paris  |payment         |2025-05-15 15:28:16  |pos    |
+|TX0000000011  |CL0060091|ACC000089992|309.86 |EUR     |309.86    |Berlin |payment         |2025-05-01 00:13:15  |pos    |
+|TX0000000016  |CL0012582|ACC000018828|1305.90|EUR     |1305.90   |Berlin |deposit         |2025-06-30 16:00:11  |online |
+|TX0000000018  |CL0060271|ACC000090259|216.53 |USD     |199.21    |Rome   |deposit         |2025-06-14 13:16:48  |pos    |
++--------------+---------+------------+-------+--------+----------+-------+----------------+---------------------+-------+
+
+
+==============================================================================
+6. Группировка по city и сортировка по средней сумме (очищенный полный набор)
+==============================================================================
+Физический план (сокращённо, полный — в plan_city_stats.txt):
++- Sort (43)
+   +- Exchange (42)
+      +- HashAggregate (41)
+         +- Exchange (40)
+            +- HashAggregate (39)
+                                                +- * Sort (18)
+                                                      +- Exchange (16)
+                                                            +- * Sort (14)
+                                                                  +- * HashAggregate (12)
+                                                                           +- Exchange (9)
+                                                                              +- * HashAggregate (8)
+                                             +- Sort (32)
+                                                +- Exchange (31)
+                                                      +- Sort (29)
+                                                            +- HashAggregate (27)
+                                                               +- Exchange (26)
+                                                                  +- HashAggregate (25)
+(8) HashAggregate [codegen id : 1]
+(9) Exchange
+(12) HashAggregate [codegen id : 2]
+(14) Sort [codegen id : 2]
+(16) Exchange
+(18) Sort [codegen id : 3]
+(25) HashAggregate
+(26) Exchange
+(27) HashAggregate
+(29) Sort
+(31) Exchange
+(32) Sort
+(39) HashAggregate
+(40) Exchange
+(41) HashAggregate
+(42) Exchange
+(43) Sort
++---------+--------------+-----------------+----------------------+
+|city     |avg_amount_eur|transaction_count|avg_amount_eur_rounded|
++---------+--------------+-----------------+----------------------+
+|Zurich   |438.255761    |90301            |438.26                |
+|London   |413.795975    |270754           |413.80                |
+|Amsterdam|345.018098    |139925           |345.02                |
+|Paris    |330.585731    |237683           |330.59                |
+|Dublin   |327.733256    |91001            |327.73                |
+|Berlin   |315.379552    |256796           |315.38                |
+|Vienna   |313.629448    |122961           |313.63                |
+|Rome     |297.362564    |172888           |297.36                |
+|Madrid   |280.498986    |189032           |280.50                |
+|Lisbon   |265.978392    |106453           |265.98                |
+|Prague   |249.908136    |104991           |249.91                |
+|Warsaw   |235.372584    |156895           |235.37                |
++---------+--------------+-----------------+----------------------+
+
+Строк с city = 'Unknown' (не участвуют в рейтинге): 8512
+
+==============================================================================
+7. Spark SQL: города с самой высокой средней суммой транзакции
+==============================================================================
+26/10/19 18:13:12 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+SELECT city,
+       AVG(amount_eur)           AS avg_amount_eur,
+       ROUND(AVG(amount_eur), 2) AS avg_amount_eur_rounded,
+       COUNT(*)                  AS transaction_count
+FROM transactions_clean
+WHERE city IS NOT NULL
+  AND city <> 'Unknown'
+  AND amount_eur IS NOT NULL
+  AND amount_eur > 0
+GROUP BY city
+ORDER BY AVG(amount_eur) DESC, city ASC   -- сортировка по точному, а не округлённому среднему
+LIMIT 5
++---------+--------------+----------------------+-----------------+
+|city     |avg_amount_eur|avg_amount_eur_rounded|transaction_count|
++---------+--------------+----------------------+-----------------+
+|Zurich   |438.255761    |438.26                |90301            |
+|London   |413.795975    |413.80                |270754           |
+|Amsterdam|345.018098    |345.02                |139925           |
+|Paris    |330.585731    |330.59                |237683           |
+|Dublin   |327.733256    |327.73                |91001            |
++---------+--------------+----------------------+-----------------+
+
+Результат SQL совпадает с DataFrame API: True
+
+==============================================================================
+9. Executors приложения (REST API Spark UI)
+==============================================================================
+  executor driver | spark-client:43253       | active=True | cores=1 | maxMemory=434 MiB | tasks=219
+
+Результаты сохранены в results/transactions/ ; время этапов, с: read_and_count_s=18.17, quality_checks_s=35.66, cleaning_s=76.59, group_sort_collect_s=1.31, total_s=181.04

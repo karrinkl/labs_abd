@@ -1,0 +1,13 @@
+rank,city,avg_amount_eur,transaction_count
+1,Zurich,787.163860,272
+2,London,605.681727,805
+3,Rome,578.144989,473
+4,Paris,577.029423,659
+5,Vienna,564.814262,427
+6,Berlin,555.172111,597
+7,Amsterdam,534.855861,459
+8,Prague,527.119470,283
+9,Dublin,496.890602,249
+10,Lisbon,457.569807,207
+11,Madrid,450.442173,520
+12,Warsaw,436.866742,353

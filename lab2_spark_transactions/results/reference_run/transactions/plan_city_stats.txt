@@ -1,0 +1,246 @@
+== Physical Plan ==
+AdaptiveSparkPlan (44)
++- Sort (43)
+   +- Exchange (42)
+      +- HashAggregate (41)
+         +- Exchange (40)
+            +- HashAggregate (39)
+               +- Filter (38)
+                  +- InMemoryTableScan (1)
+                        +- InMemoryRelation (2)
+                              +- AdaptiveSparkPlan (37)
+                                 +- == Final Plan ==
+                                    ResultQueryStage (23)
+                                    +- * Project (22)
+                                       +- * Filter (21)
+                                          +- Window (20)
+                                             +- WindowGroupLimit (19)
+                                                +- * Sort (18)
+                                                   +- ShuffleQueryStage (17), Statistics(sizeInBytes=346.7 MiB, rowCount=1.95E+6)
+                                                      +- Exchange (16)
+                                                         +- WindowGroupLimit (15)
+                                                            +- * Sort (14)
+                                                               +- * Project (13)
+                                                                  +- * HashAggregate (12)
+                                                                     +- AQEShuffleRead (11)
+                                                                        +- ShuffleQueryStage (10), Statistics(sizeInBytes=364.0 MiB, rowCount=1.97E+6)
+                                                                           +- Exchange (9)
+                                                                              +- * HashAggregate (8)
+                                                                                 +- * Filter (7)
+                                                                                    +- TableCacheQueryStage (6), Statistics(sizeInBytes=221.1 MiB, rowCount=2.02E+6)
+                                                                                       +- InMemoryTableScan (3)
+                                                                                             +- InMemoryRelation (4)
+                                                                                                   +- Scan csv  (5)
+                                 +- == Initial Plan ==
+                                    Project (36)
+                                    +- Filter (35)
+                                       +- Window (34)
+                                          +- WindowGroupLimit (33)
+                                             +- Sort (32)
+                                                +- Exchange (31)
+                                                   +- WindowGroupLimit (30)
+                                                      +- Sort (29)
+                                                         +- Project (28)
+                                                            +- HashAggregate (27)
+                                                               +- Exchange (26)
+                                                                  +- HashAggregate (25)
+                                                                     +- Filter (24)
+                                                                        +- InMemoryTableScan (3)
+                                                                              +- InMemoryRelation (4)
+                                                                                    +- Scan csv  (5)
+
+
+(1) InMemoryTableScan
+Output [2]: [amount_eur#718, city#719]
+Arguments: [amount_eur#718, city#719], [isnotnull(city#719), NOT (city#719 = Unknown)]
+
+(2) InMemoryRelation
+Arguments: [transaction_id#713, client_id#714, account_id#715, amount#716, currency#717, amount_eur#718, city#719, transaction_type#720, transaction_timestamp#721, channel#722], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(3) InMemoryTableScan
+Output [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Arguments: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8], [CASE WHEN CASE WHEN (trim(transaction_id#0, None) = ) THEN true ELSE isnull(trim(transaction_id#0, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(client_id#1, None) = ) THEN true ELSE isnull(trim(client_id#1, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(account_id#2, None) = ) THEN true ELSE isnull(trim(account_id#2, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN true ELSE isnull(trim(amount#3, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN true ELSE isnull(try_cast(trim(amount#3, None) as decimal(18,2))) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN false ELSE (try_cast(trim(amount#3, None) as decimal(18,2)) <= 0.00) END THEN false ELSE CASE WHEN CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN true ELSE isnull(trim(transaction_timestamp#7, None)) END THEN false ELSE CASE WHEN isnull(coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false))) THEN false ELSE CASE WHEN ((coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) < 2025-01-01 00:00:00) OR (coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) >= 2026-01-01 00:00:00)) THEN false ELSE CASE WHEN CASE WHEN (trim(currency#4, None) = ) THEN true ELSE isnull(upper(trim(currency#4, None))) END THEN false ELSE isnotnull(element_at(map(keys: [EUR,USD,GBP,CHF], values: [1.0000,0.9200,1.1700,1.0500]), CASE WHEN (trim(currency#4, None) = ) THEN null ELSE upper(trim(currency#4, None)) END, None, false)) END END END END END END END END END END]
+
+(4) InMemoryRelation
+Arguments: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(5) Scan csv 
+Output [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Batched: false
+Location: InMemoryFileIndex [file:/opt/project/data/transactions.csv]
+ReadSchema: struct<transaction_id:string,client_id:string,account_id:string,amount:string,currency:string,city:string,transaction_type:string,transaction_timestamp:string,channel:string>
+
+(6) TableCacheQueryStage
+Output [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Arguments: 0
+
+(7) Filter [codegen id : 1]
+Input [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Condition : CASE WHEN CASE WHEN (trim(transaction_id#0, None) = ) THEN true ELSE isnull(trim(transaction_id#0, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(client_id#1, None) = ) THEN true ELSE isnull(trim(client_id#1, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(account_id#2, None) = ) THEN true ELSE isnull(trim(account_id#2, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN true ELSE isnull(trim(amount#3, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN true ELSE isnull(try_cast(trim(amount#3, None) as decimal(18,2))) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN false ELSE (try_cast(trim(amount#3, None) as decimal(18,2)) <= 0.00) END THEN false ELSE CASE WHEN CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN true ELSE isnull(trim(transaction_timestamp#7, None)) END THEN false ELSE CASE WHEN isnull(coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false))) THEN false ELSE CASE WHEN ((coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) < 2025-01-01 00:00:00) OR (coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) >= 2026-01-01 00:00:00)) THEN false ELSE CASE WHEN CASE WHEN (trim(currency#4, None) = ) THEN true ELSE isnull(upper(trim(currency#4, None))) END THEN false ELSE isnotnull(element_at(map(keys: [EUR,USD,GBP,CHF], values: [1.0000,0.9200,1.1700,1.0500]), CASE WHEN (trim(currency#4, None) = ) THEN null ELSE upper(trim(currency#4, None)) END, None, false)) END END END END END END END END END END
+
+(8) HashAggregate [codegen id : 1]
+Input [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Keys [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Functions: []
+Aggregate Attributes: []
+Results [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+
+(9) Exchange
+Input [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Arguments: hashpartitioning(city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7, 8), ENSURE_REQUIREMENTS, [plan_id=987]
+
+(10) ShuffleQueryStage
+Output [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Arguments: 1
+
+(11) AQEShuffleRead
+Input [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Arguments: coalesced
+
+(12) HashAggregate [codegen id : 2]
+Input [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Keys [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Functions: []
+Aggregate Attributes: []
+Results [18]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8, CASE WHEN (trim(transaction_id#0, None) = ) THEN null ELSE trim(transaction_id#0, None) END AS transaction_id_n#690, CASE WHEN (trim(client_id#1, None) = ) THEN null ELSE trim(client_id#1, None) END AS client_id_n#691, CASE WHEN (trim(account_id#2, None) = ) THEN null ELSE trim(account_id#2, None) END AS account_id_n#692, CASE WHEN (trim(city#5, None) = ) THEN null ELSE trim(city#5, None) END AS city_n#695, CASE WHEN (trim(transaction_type#6, None) = ) THEN null ELSE trim(transaction_type#6, None) END AS transaction_type_n#696, CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END AS transaction_timestamp_n#697, CASE WHEN (trim(channel#8, None) = ) THEN null ELSE trim(channel#8, None) END AS channel_n#698, CASE WHEN (trim(amount#3, None) = ) THEN null ELSE try_cast(trim(amount#3, None) as decimal(18,2)) END AS amount_dec#700, CASE WHEN (trim(currency#4, None) = ) THEN null ELSE upper(trim(currency#4, None)) END AS currency_norm#701]
+
+(13) Project [codegen id : 2]
+Output [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, element_at(map(keys: [EUR,USD,GBP,CHF], values: [1.0000,0.9200,1.1700,1.0500]), currency_norm#701, None, false) AS rate_eur#702, initcap(lower(city_n#695)) AS city_cap#703, lower(transaction_type_n#696) AS type_low#704, lower(channel_n#698) AS channel_low#705, coalesce(gettimestamp(transaction_timestamp_n#697, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(transaction_timestamp_n#697, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(transaction_timestamp_n#697, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) AS ts_parsed#707, isnotnull(gettimestamp(transaction_timestamp_n#697, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) AS ts_primary_ok#708, xxhash64(transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8, 42) AS _w0#712L]
+Input [18]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8, transaction_id_n#690, client_id_n#691, account_id_n#692, city_n#695, transaction_type_n#696, transaction_timestamp_n#697, channel_n#698, amount_dec#700, currency_norm#701]
+
+(14) Sort [codegen id : 2]
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690 ASC NULLS FIRST, ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], false, 0
+
+(15) WindowGroupLimit
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690], [ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], row_number(), 1, Partial
+
+(16) Exchange
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: hashpartitioning(transaction_id_n#690, 8), ENSURE_REQUIREMENTS, [plan_id=1055]
+
+(17) ShuffleQueryStage
+Output [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: 2
+
+(18) Sort [codegen id : 3]
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690 ASC NULLS FIRST, ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], false, 0
+
+(19) WindowGroupLimit
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690], [ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], row_number(), 1, Final
+
+(20) Window
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [row_number() windowspecdefinition(transaction_id_n#690, ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS _rn#710], [transaction_id_n#690], [ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST]
+
+(21) Filter [codegen id : 4]
+Input [13]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L, _rn#710]
+Condition : (_rn#710 = 1)
+
+(22) Project [codegen id : 4]
+Output [10]: [transaction_id_n#690 AS transaction_id#713, client_id_n#691 AS client_id#714, account_id_n#692 AS account_id#715, amount_dec#700 AS amount#716, currency_norm#701 AS currency#717, cast((amount_dec#700 * rate_eur#702) as decimal(18,2)) AS amount_eur#718, CASE WHEN city_cap#703 INSET Amsterdam, Berlin, Dublin, Lisbon, London, Madrid, Paris, Prague, Rome, Vienna, Warsaw, Zurich THEN city_cap#703 ELSE Unknown END AS city#719, CASE WHEN type_low#704 IN (deposit,payment,transfer,withdrawal) THEN type_low#704 ELSE unknown END AS transaction_type#720, ts_parsed#707 AS transaction_timestamp#721, CASE WHEN channel_low#705 IN (atm,branch,online,pos) THEN channel_low#705 ELSE unknown END AS channel#722]
+Input [13]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L, _rn#710]
+
+(23) ResultQueryStage
+Output [10]: [transaction_id#713, client_id#714, account_id#715, amount#716, currency#717, amount_eur#718, city#719, transaction_type#720, transaction_timestamp#721, channel#722]
+Arguments: 3
+
+(24) Filter
+Input [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Condition : CASE WHEN CASE WHEN (trim(transaction_id#0, None) = ) THEN true ELSE isnull(trim(transaction_id#0, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(client_id#1, None) = ) THEN true ELSE isnull(trim(client_id#1, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(account_id#2, None) = ) THEN true ELSE isnull(trim(account_id#2, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN true ELSE isnull(trim(amount#3, None)) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN true ELSE isnull(try_cast(trim(amount#3, None) as decimal(18,2))) END THEN false ELSE CASE WHEN CASE WHEN (trim(amount#3, None) = ) THEN false ELSE (try_cast(trim(amount#3, None) as decimal(18,2)) <= 0.00) END THEN false ELSE CASE WHEN CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN true ELSE isnull(trim(transaction_timestamp#7, None)) END THEN false ELSE CASE WHEN isnull(coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false))) THEN false ELSE CASE WHEN ((coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) < 2025-01-01 00:00:00) OR (coalesce(gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) >= 2026-01-01 00:00:00)) THEN false ELSE CASE WHEN CASE WHEN (trim(currency#4, None) = ) THEN true ELSE isnull(upper(trim(currency#4, None))) END THEN false ELSE isnotnull(element_at(map(keys: [EUR,USD,GBP,CHF], values: [1.0000,0.9200,1.1700,1.0500]), CASE WHEN (trim(currency#4, None) = ) THEN null ELSE upper(trim(currency#4, None)) END, None, false)) END END END END END END END END END END
+
+(25) HashAggregate
+Input [9]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8]
+Keys [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Functions: []
+Aggregate Attributes: []
+Results [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+
+(26) Exchange
+Input [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Arguments: hashpartitioning(city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7, 8), ENSURE_REQUIREMENTS, [plan_id=660]
+
+(27) HashAggregate
+Input [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Keys [9]: [city#5, channel#8, client_id#1, amount#3, transaction_id#0, account_id#2, currency#4, transaction_type#6, transaction_timestamp#7]
+Functions: []
+Aggregate Attributes: []
+Results [18]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8, CASE WHEN (trim(transaction_id#0, None) = ) THEN null ELSE trim(transaction_id#0, None) END AS transaction_id_n#690, CASE WHEN (trim(client_id#1, None) = ) THEN null ELSE trim(client_id#1, None) END AS client_id_n#691, CASE WHEN (trim(account_id#2, None) = ) THEN null ELSE trim(account_id#2, None) END AS account_id_n#692, CASE WHEN (trim(city#5, None) = ) THEN null ELSE trim(city#5, None) END AS city_n#695, CASE WHEN (trim(transaction_type#6, None) = ) THEN null ELSE trim(transaction_type#6, None) END AS transaction_type_n#696, CASE WHEN (trim(transaction_timestamp#7, None) = ) THEN null ELSE trim(transaction_timestamp#7, None) END AS transaction_timestamp_n#697, CASE WHEN (trim(channel#8, None) = ) THEN null ELSE trim(channel#8, None) END AS channel_n#698, CASE WHEN (trim(amount#3, None) = ) THEN null ELSE try_cast(trim(amount#3, None) as decimal(18,2)) END AS amount_dec#700, CASE WHEN (trim(currency#4, None) = ) THEN null ELSE upper(trim(currency#4, None)) END AS currency_norm#701]
+
+(28) Project
+Output [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, element_at(map(keys: [EUR,USD,GBP,CHF], values: [1.0000,0.9200,1.1700,1.0500]), currency_norm#701, None, false) AS rate_eur#702, initcap(lower(city_n#695)) AS city_cap#703, lower(transaction_type_n#696) AS type_low#704, lower(channel_n#698) AS channel_low#705, coalesce(gettimestamp(transaction_timestamp_n#697, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(transaction_timestamp_n#697, yyyy-MM-dd'T'HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false), gettimestamp(transaction_timestamp_n#697, dd.MM.yyyy HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) AS ts_parsed#707, isnotnull(gettimestamp(transaction_timestamp_n#697, yyyy-MM-dd HH:mm:ss, TimestampType, try_to_timestamp, Some(UTC), false)) AS ts_primary_ok#708, xxhash64(transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8, 42) AS _w0#712L]
+Input [18]: [transaction_id#0, client_id#1, account_id#2, amount#3, currency#4, city#5, transaction_type#6, transaction_timestamp#7, channel#8, transaction_id_n#690, client_id_n#691, account_id_n#692, city_n#695, transaction_type_n#696, transaction_timestamp_n#697, channel_n#698, amount_dec#700, currency_norm#701]
+
+(29) Sort
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690 ASC NULLS FIRST, ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], false, 0
+
+(30) WindowGroupLimit
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690], [ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], row_number(), 1, Partial
+
+(31) Exchange
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: hashpartitioning(transaction_id_n#690, 8), ENSURE_REQUIREMENTS, [plan_id=667]
+
+(32) Sort
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690 ASC NULLS FIRST, ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], false, 0
+
+(33) WindowGroupLimit
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [transaction_id_n#690], [ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST], row_number(), 1, Final
+
+(34) Window
+Input [12]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L]
+Arguments: [row_number() windowspecdefinition(transaction_id_n#690, ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS _rn#710], [transaction_id_n#690], [ts_primary_ok#708 DESC NULLS LAST, _w0#712L ASC NULLS FIRST]
+
+(35) Filter
+Input [13]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L, _rn#710]
+Condition : (_rn#710 = 1)
+
+(36) Project
+Output [10]: [transaction_id_n#690 AS transaction_id#713, client_id_n#691 AS client_id#714, account_id_n#692 AS account_id#715, amount_dec#700 AS amount#716, currency_norm#701 AS currency#717, cast((amount_dec#700 * rate_eur#702) as decimal(18,2)) AS amount_eur#718, CASE WHEN city_cap#703 INSET Amsterdam, Berlin, Dublin, Lisbon, London, Madrid, Paris, Prague, Rome, Vienna, Warsaw, Zurich THEN city_cap#703 ELSE Unknown END AS city#719, CASE WHEN type_low#704 IN (deposit,payment,transfer,withdrawal) THEN type_low#704 ELSE unknown END AS transaction_type#720, ts_parsed#707 AS transaction_timestamp#721, CASE WHEN channel_low#705 IN (atm,branch,online,pos) THEN channel_low#705 ELSE unknown END AS channel#722]
+Input [13]: [transaction_id_n#690, client_id_n#691, account_id_n#692, amount_dec#700, currency_norm#701, rate_eur#702, city_cap#703, type_low#704, channel_low#705, ts_parsed#707, ts_primary_ok#708, _w0#712L, _rn#710]
+
+(37) AdaptiveSparkPlan
+Output [10]: [transaction_id#713, client_id#714, account_id#715, amount#716, currency#717, amount_eur#718, city#719, transaction_type#720, transaction_timestamp#721, channel#722]
+Arguments: isFinalPlan=true
+
+(38) Filter
+Input [2]: [amount_eur#718, city#719]
+Condition : (isnotnull(city#719) AND NOT (city#719 = Unknown))
+
+(39) HashAggregate
+Input [2]: [amount_eur#718, city#719]
+Keys [1]: [city#719]
+Functions [2]: [partial_avg(amount_eur#718), partial_count(1)]
+Aggregate Attributes [3]: [sum#5400, count#5401L, count#5402L]
+Results [4]: [city#719, sum#5403, count#5404L, count#5405L]
+
+(40) Exchange
+Input [4]: [city#719, sum#5403, count#5404L, count#5405L]
+Arguments: hashpartitioning(city#719, 8), ENSURE_REQUIREMENTS, [plan_id=2076]
+
+(41) HashAggregate
+Input [4]: [city#719, sum#5403, count#5404L, count#5405L]
+Keys [1]: [city#719]
+Functions [2]: [avg(amount_eur#718), count(1)]
+Aggregate Attributes [2]: [avg(amount_eur#718)#5248, count(1)#5249L]
+Results [3]: [city#719, avg(amount_eur#718)#5248 AS avg_amount_eur#5236, count(1)#5249L AS transaction_count#5237L]
+
+(42) Exchange
+Input [3]: [city#719, avg_amount_eur#5236, transaction_count#5237L]
+Arguments: rangepartitioning(avg_amount_eur#5236 DESC NULLS LAST, city#719 ASC NULLS FIRST, 8), ENSURE_REQUIREMENTS, [plan_id=2079]
+
+(43) Sort
+Input [3]: [city#719, avg_amount_eur#5236, transaction_count#5237L]
+Arguments: [avg_amount_eur#5236 DESC NULLS LAST, city#719 ASC NULLS FIRST], true, 0
+
+(44) AdaptiveSparkPlan
+Output [3]: [city#719, avg_amount_eur#5236, transaction_count#5237L]
+Arguments: isFinalPlan=false
+

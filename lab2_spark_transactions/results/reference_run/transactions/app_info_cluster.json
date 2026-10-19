@@ -1,0 +1,74 @@
+{
+  "spark_version": "4.1.3",
+  "app_id": "app-20261019180654-0004",
+  "app_name": "lab2-transactions-cluster",
+  "master": "spark://spark-master:7077",
+  "ui_url": "http://spark-client:4040",
+  "default_parallelism": 2,
+  "conf": {
+    "spark.app.id": "app-20261019180654-0004",
+    "spark.cores.max": "2",
+    "spark.driver.memory": "1g",
+    "spark.executor.cores": "2",
+    "spark.executor.extraJavaOptions": "-Djava.net.preferIPv6Addresses=false -XX:+IgnoreUnrecognizedVMOptions --add-modules=jdk.incubator.vector --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.nio.cs=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED -Djdk.reflect.useDirectMethodHandle=false -Dio.netty.tryReflectionSetAccessible=true -Dio.netty.allocator.type=pooled -Dio.netty.handler.ssl.defaultEndpointVerificationAlgorithm=NONE --enable-native-access=ALL-UNNAMED",
+    "spark.executor.id": "driver",
+    "spark.executor.memory": "1g",
+    "spark.master": "spark://spark-master:7077",
+    "spark.sql.files.maxPartitionBytes": "32m",
+    "spark.sql.shuffle.partitions": "8"
+  },
+  "executors": [
+    {
+      "id": "driver",
+      "hostPort": "spark-client:34997",
+      "isActive": true,
+      "totalCores": 0,
+      "maxMemory": 455501414,
+      "totalTasks": 0,
+      "completedTasks": 0,
+      "failedTasks": 0,
+      "totalDuration": 188980,
+      "totalGCTime": 902,
+      "totalShuffleRead": 0,
+      "totalShuffleWrite": 0,
+      "peakJVMHeapMemory": 226051776
+    },
+    {
+      "id": "0",
+      "hostPort": "172.18.0.4:44243",
+      "isActive": true,
+      "totalCores": 2,
+      "maxMemory": 455501414,
+      "totalTasks": 247,
+      "completedTasks": 247,
+      "failedTasks": 0,
+      "totalDuration": 304167,
+      "totalGCTime": 7749,
+      "totalShuffleRead": 1236335885,
+      "totalShuffleWrite": 1236322540,
+      "peakJVMHeapMemory": 940944176
+    }
+  ],
+  "run_label": "cluster",
+  "dataset": "data/transactions.csv",
+  "timings_s": {
+    "read_and_count_s": 14.508106364000014,
+    "quality_checks_s": 34.95751871900029,
+    "cleaning_s": 61.56988659799981,
+    "group_sort_collect_s": 1.900411296999664,
+    "write_s": 34.164638189000016,
+    "total_s": 189.18095284499987
+  },
+  "sql_matches_dataframe": true,
+  "config": {
+    "data_path": "data/transactions.csv",
+    "results_dir": "results",
+    "amount_threshold": 100.0,
+    "period_start": "2025-01-01",
+    "period_end": "2026-01-01",
+    "shuffle_partitions": 8,
+    "max_partition_bytes": "32m",
+    "top_n": 5,
+    "extra": {}
+  }
+}

@@ -1,0 +1,61 @@
+transaction_id,client_id,account_id,amount,currency,city,transaction_type,transaction_timestamp,channel,reject_reason
+TX0000000011,CL0060091,ACC000089992,309.86,EUR,Berlin,payment,2025-05-01T00:13:15,pos,duplicate_transaction_id
+TX0000000036,CL0030532,ACC000045738,162.73,GBP,London,payment,2025-07-05 04:30:13,pos,duplicate_transaction_id
+TX0000000213,CL0029498,ACC000044188,332.34,EUR,Warsaw,transfer,2025-06-14T12:03:15,branch,duplicate_transaction_id
+TX0000000250,CL0039674,ACC000059378,10.84,USD,Lisbon,payment,2025-03-20T20:36:49,online,duplicate_transaction_id
+TX0000000264,CL0006948,ACC000010431,66.53,EUR,Vienna,transfer,2025-08-20T12:55:50,pos,duplicate_transaction_id
+TX0000000381,CL0045327,ACC000067808,35.73,USD,BERLIN,payment,2025-08-14 04:12:46,online,duplicate_transaction_id
+TX0000000536,CL0078407,ACC000117532,26.76,EUR,Berlin,payment,2025-03-22 20:17:11,pos,duplicate_transaction_id
+TX0000000780,CL0049904,ACC000074756,16.77,GBP,Paris,payment,2025-05-27T14:37:19,branch,duplicate_transaction_id
+TX0000000872,CL0009476,ACC000014214,262.17,GBP,LONDON,payment,2025-05-15 19:48:59,pos,duplicate_transaction_id
+TX0000001969,CL0051107,ACC000076556,1745.78,USD,ZURICH,deposit,2025-09-04 19:54:14,online,duplicate_transaction_id
+TX0000002389,CL0041397,ACC000061963,19.70,EUR,Berlin,payment,2025-11-10T19:20:31,pos,duplicate_transaction_id
+TX0000002660,CL0096510,ACC000144697,135.51,USD,Amsterdam,withdrawal,2025-06-15 07:26:34,atm,duplicate_transaction_id
+TX0000002927,CL0086913,ACC000130238,108.20,GBP,Vienna,payment,2025-04-14 21:07:43,online,duplicate_transaction_id
+TX0000003592,CL0050415,ACC000075528,99.87,USD,MADRID,withdrawal,2025-02-15 03:15:43,branch,duplicate_transaction_id
+TX0000003592,CL0050415,ACC000075528,99.87,USD,Madrid,withdrawal,2025-02-15T03:15:43,branch,duplicate_transaction_id
+TX0000004172,CL0015481,ACC000023141,421.44,USD,London,withdrawal,2025-04-13T08:07:07,online,duplicate_transaction_id
+TX0000004968,CL0097392,ACC000146038,599.89,EUR,London,withdrawal,2025-06-09T19:25:54,online,duplicate_transaction_id
+TX0000005004,CL0083249,ACC000124778,506.22,EUR,Zurich,transfer,2025-09-27 13:49:28,online,duplicate_transaction_id
+TX0000005066,CL0029512,ACC000044206,62.19,EUR,  London , payment,2025-04-26 12:38:26,pos,duplicate_transaction_id
+TX0000005066,CL0029512,ACC000044206,62.19,EUR,LONDON, payment,2025-04-26 12:38:26,pos,duplicate_transaction_id
+TX0000005110,CL0073631,ACC000110416,28.79,EUR,Warsaw,payment,2025-05-16 01:28:55,online,duplicate_transaction_id
+TX0000005252,CL0069025,ACC000103478,36.83,USD,Rome,payment,2025-09-20T14:12:32,online,duplicate_transaction_id
+TX0000005295,CL0099374,ACC000149058,204.71,EUR,Paris,payment,2025-12-25 13:46:06,atm,duplicate_transaction_id
+TX0000005349,CL0012874,ACC000019266,55.59,EUR,PARIS,withdrawal,2025-12-08 23:44:03,online,duplicate_transaction_id
+TX0000005602,CL0007718,ACC000011583,18.48,EUR,Berlin,payment,2025-11-03 23:12:27,atm,duplicate_transaction_id
+TX0000005696,CL0084778,ACC000127068,108.39,EUR,Lisbon,withdrawal,2025-06-17 02:50:51,online,duplicate_transaction_id
+TX0000005696,CL0084778,ACC000127068,108.39,EUR,Lisbon,withdrawal,2025-06-17T02:50:51,online,duplicate_transaction_id
+TX0000006636,CL0044893,ACC000067155,158.910,EUR,Amsterdam,withdrawal,2025-07-04 13:55:09,online,duplicate_transaction_id
+TX0000007229,CL0066325,ACC000099396,80.29,USD,Amsterdam,withdrawal,2025-08-15 10:54:50,online,duplicate_transaction_id
+TX0000007377,CL0087673,ACC000131364,1241.88,EUR,London,deposit,2025-11-17 00:40:13,pos,duplicate_transaction_id
+TX0000007521,CL0089087,ACC000133538,303.00,EUR,Rome,transfer,2025-07-23 14:44:21,online,duplicate_transaction_id
+TX0000007521,CL0089087,ACC000133538,303.00,EUR,ROME,transfer,2025-07-23 14:44:21,online,duplicate_transaction_id
+TX0000007793,CL0095932,ACC000143799,102.14,EUR,Vienna,payment,2025-10-31 11:29:22,atm,duplicate_transaction_id
+TX0000007943,CL0008810,ACC000013202,513.95,EUR,PRAGUE,deposit,2025-10-17 06:04:11,pos,duplicate_transaction_id
+TX0000007980,CL0081692,ACC000122443,51.16,GBP,London,payment,2025-03-17 16:20:49,pos,duplicate_transaction_id
+TX0000007980,CL0081692,ACC000122443,51.16,GBP,London,payment,2025-03-17T16:20:49,pos,duplicate_transaction_id
+TX0000008091,CL0021301,ACC000031900,31.04,USD,Amsterdam,payment,2025-01-02 05:36:09,atm,duplicate_transaction_id
+TX0000008132,CL0038565,ACC000057732,163.65,EUR,Vienna,payment,2025-08-06T19:30:38,atm,duplicate_transaction_id
+TX0000008435,CL0046349,ACC000069387,99.19,EUR,Lisbon,payment,2025-01-14T05:43:02,online,duplicate_transaction_id
+TX0000008751,CL0016118,ACC000024106,4.78,EUR,Rome,payment,2025-03-22 06:42:42,online,duplicate_transaction_id
+TX0000008773,CL0009064,ACC000013589,1715.880,GBP,Amsterdam,deposit,2025-12-24 01:04:53,pos,duplicate_transaction_id
+TX0000009110,CL0071274,ACC000106842,124.69,USD,Paris,payment,2025-05-22T05:26:36,pos,duplicate_transaction_id
+TX0000009214,CL0000592,ACC000000880,19.720,EUR,Rome,payment,2025-10-01 10:03:05,online,duplicate_transaction_id
+TX0000009420,CL0037827,ACC000056613,15.730,EUR,   ,payment,2025-11-11 15:21:22,branch,duplicate_transaction_id
+TX0000010043,CL0015587,ACC000023305,76.58,USD,Amsterdam,payment,2025-11-24T14:56:54,pos,duplicate_transaction_id
+TX0000010601,CL0085268,ACC000127803,27.82,CHF,AMSTERDAM,payment,2025-11-21 13:00:47,online,duplicate_transaction_id
+TX0000010613,CL0013448,ACC000020101,29.17,EUR,Rome,payment,2025-11-04T18:36:07,online,duplicate_transaction_id
+TX0000011057,CL0015515,ACC000023198,67.49,EUR,Rome,payment,2025-06-23T03:51:11,online,duplicate_transaction_id
+TX0000011341,CL0025776,ACC000038614,102.20,EUR,Madrid,payment,2025-08-02T23:44:54,online,duplicate_transaction_id
+TX0000011385,CL0014838,ACC000022204,25.78,EUR,PRAGUE,payment,2025-07-29 13:56:41,pos,duplicate_transaction_id
+TX0000011494,CL0043888,ACC000065663,820.97,GBP,Berlin,deposit,2025-05-13 02:45:37,pos,duplicate_transaction_id
+TX0000011592,CL0098488,ACC000147711,53.42,EUR,Paris,payment,2025-03-10 22:38:41,pos,duplicate_transaction_id
+TX0000012164,CL0008206,ACC000012321,262.92,GBP,LONDON,transfer,2025-10-24 09:43:54,online,duplicate_transaction_id
+TX0000012233,CL0070984,ACC000106406,23.40,GBP,London,payment,2025-01-03T15:19:08,pos,duplicate_transaction_id
+TX0000012456,CL0034172,ACC000051156,22.90,EUR,London,payment,2025-08-02 01:04:24,branch,duplicate_transaction_id
+TX0000012588,CL0004717,ACC000007096,570.45,GBP,London,deposit,2025-06-03 21:27:08,pos,duplicate_transaction_id
+TX0000012750,CL0034978,ACC000052373,92.91,EUR,Paris,withdrawal,2025-05-04 18:27:24,online,duplicate_transaction_id
+TX0000013117,CL0004402,ACC000006631,156.110,GBP,London,payment,2025-03-10 03:52:05,branch,duplicate_transaction_id
+TX0000013117,CL0004402,ACC000006631,156.11,GBP,London,payment,2025-03-10T03:52:05,branch,duplicate_transaction_id
+TX0000013271,CL0097435,ACC000146112,266.04,EUR,London,deposit,2025-12-30T12:07:36,branch,duplicate_transaction_id

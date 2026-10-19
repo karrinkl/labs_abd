@@ -1,0 +1,81 @@
+{
+  "dataset": "data/transactions.csv",
+  "quality": {
+    "raw_rows": 2020000,
+    "missing_values": {
+      "transaction_id": 5056,
+      "client_id": 5141,
+      "account_id": 4945,
+      "amount": 5075,
+      "currency": 4967,
+      "city": 4974,
+      "transaction_type": 5127,
+      "transaction_timestamp": 5019
+    },
+    "duplicates": {
+      "exact_duplicate_rows": 12103,
+      "transaction_ids_occurring_more_than_once": 16479,
+      "rows_sharing_a_duplicated_transaction_id": 36430
+    },
+    "amount": {
+      "amount_invalid_format": 3762,
+      "amount_negative": 3749,
+      "amount_zero": 3834
+    },
+    "categorical": {
+      "currency_unknown": 3698,
+      "currency_wrong_case": 13361,
+      "city_unrecognized": 3719,
+      "city_needs_normalization": 15931,
+      "transaction_type_unknown": 3812,
+      "transaction_type_needs_normalization": 13269,
+      "channel_missing_or_unknown": 0
+    },
+    "timestamps": {
+      "unparseable": 3608,
+      "alternative_format": 15796,
+      "out_of_range": 3760,
+      "min_parsed": "1999-12-31 23:59:59",
+      "max_parsed": "2031-05-01 12:00:00",
+      "expected_interval_utc": [
+        "2025-01-01",
+        "2026-01-01"
+      ]
+    }
+  },
+  "cleaning": {
+    "rows_before_cleaning": 2020000,
+    "removed_exact_duplicates": 12103,
+    "rejected_by_reason": {
+      "non_positive_amount": 7478,
+      "missing_client_id": 5108,
+      "missing_amount": 5039,
+      "missing_transaction_id": 5029,
+      "missing_timestamp": 4959,
+      "missing_account_id": 4918,
+      "missing_currency": 4888,
+      "invalid_amount_format": 3721,
+      "timestamp_out_of_range": 3702,
+      "unknown_currency": 3635,
+      "invalid_timestamp": 3555
+    },
+    "rejected_total": 52032,
+    "removed_duplicate_transaction_id": 7673,
+    "rows_after_cleaning": 1948192,
+    "corrected_in_kept_rows": {
+      "city_missing_filled_unknown": 4881,
+      "city_unrecognized_set_unknown": 3631,
+      "city_case_or_spaces_fixed": 14009,
+      "transaction_type_missing_or_unknown_set_unknown": 8713,
+      "transaction_type_case_or_spaces_fixed": 12797,
+      "currency_case_fixed": 12929,
+      "timestamp_converted_to_standard_format": 12770,
+      "channel_missing_or_unknown_set_unknown": 0
+    },
+    "rows_with_any_correction": 56609,
+    "balance_check": {
+      "formula": "rows_before = exact_duplicates + rejected_total + duplicate_transaction_id + rows_after",
+      "ok": true
+    }
+  }
+}

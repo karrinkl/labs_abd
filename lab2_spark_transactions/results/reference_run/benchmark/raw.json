@@ -1,0 +1,1512 @@
+{
+  "meta": {
+    "started_utc": "2026-10-19T18:31:15+00:00",
+    "host_visible_from_client_container": {
+      "cpu_count_visible": 4,
+      "mem_total_gib_visible": 15.7
+    },
+    "cluster": {
+      "url": "spark://spark-master:7077",
+      "status": "ALIVE",
+      "alive_workers": 1,
+      "cores": 2,
+      "memory_mib": 2048,
+      "workers": [
+        {
+          "id": "worker-20261019180114-172.18.0.4-44799",
+          "cores": 2,
+          "memory_mib": 2048,
+          "state": "ALIVE"
+        }
+      ]
+    },
+    "repeats": 5,
+    "warmup": 1,
+    "measured_operation": "read CSV -> normalize/validate -> deduplicate -> groupBy(city) avg/count -> orderBy(avg desc) -> collect; writes excluded; SparkSession start measured separately",
+    "results_match_across_modes": true
+  },
+  "runs": [
+    {
+      "mode": "local1",
+      "master": "local[1]",
+      "spark_version": "4.1.3",
+      "app_id": "local-1792434679290",
+      "default_parallelism": 1,
+      "input_partitions": 1,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": null,
+      "executor_cores_conf": null,
+      "cores_max_conf": null,
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:41453",
+          "isActive": true,
+          "totalCores": 1,
+          "maxMemory": 455501414,
+          "totalTasks": 36,
+          "completedTasks": 36,
+          "failedTasks": 0,
+          "totalDuration": 23932,
+          "totalGCTime": 490,
+          "totalShuffleRead": 5280360,
+          "totalShuffleWrite": 5275398,
+          "peakJVMHeapMemory": 382998400
+        }
+      ],
+      "session_start_s": 4.35838287200022,
+      "timings_s": [
+        1.7717680450000444,
+        1.5800784789998943,
+        1.4466118820000702,
+        1.4363536880000538,
+        1.2301342949999707
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 0.32619999999999993,
+        "executor_cpu_time_s": 0.2867300818,
+        "input_mb": 0.8556537628173828,
+        "shuffle_read_mb": 0.8392906188964844,
+        "shuffle_write_mb": 0.8385019302368164,
+        "tasks": 6.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "542.786324",
+          "transaction_count": 408
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "402.168804",
+          "transaction_count": 1271
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "339.053255",
+          "transaction_count": 1192
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "334.613858",
+          "transaction_count": 871
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "322.494302",
+          "transaction_count": 802
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "320.738056",
+          "transaction_count": 818
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "316.782764",
+          "transaction_count": 1125
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "297.787578",
+          "transaction_count": 450
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "272.710133",
+          "transaction_count": 601
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "258.386697",
+          "transaction_count": 987
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "243.485463",
+          "transaction_count": 432
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "231.048826",
+          "transaction_count": 741
+        }
+      ],
+      "dataset": "data/transactions_test.csv",
+      "rows_in_file": 10100,
+      "file_mb": 0.9,
+      "description": "локальный однопоточный режим local[1]: драйвер и единственный поток задач в одной JVM",
+      "process_wall_s": 27.21361203200013,
+      "client_peak_rss_mb": 935.4,
+      "client_cpu_s": 55.32
+    },
+    {
+      "mode": "local_all",
+      "master": "local[*]",
+      "spark_version": "4.1.3",
+      "app_id": "local-1792434706746",
+      "default_parallelism": 4,
+      "input_partitions": 1,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": null,
+      "executor_cores_conf": null,
+      "cores_max_conf": null,
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:45317",
+          "isActive": true,
+          "totalCores": 4,
+          "maxMemory": 455501414,
+          "totalTasks": 36,
+          "completedTasks": 36,
+          "failedTasks": 0,
+          "totalDuration": 23538,
+          "totalGCTime": 403,
+          "totalShuffleRead": 5280360,
+          "totalShuffleWrite": 5275398,
+          "peakJVMHeapMemory": 259330808
+        }
+      ],
+      "session_start_s": 4.485710098000254,
+      "timings_s": [
+        1.6555431960000533,
+        1.493297917000291,
+        1.3993038700000398,
+        1.2675068690000444,
+        1.2569715599997835
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 0.2888,
+        "executor_cpu_time_s": 0.27014583480000004,
+        "input_mb": 0.8556537628173828,
+        "shuffle_read_mb": 0.8392906188964844,
+        "shuffle_write_mb": 0.8385019302368164,
+        "tasks": 6.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "542.786324",
+          "transaction_count": 408
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "402.168804",
+          "transaction_count": 1271
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "339.053255",
+          "transaction_count": 1192
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "334.613858",
+          "transaction_count": 871
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "322.494302",
+          "transaction_count": 802
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "320.738056",
+          "transaction_count": 818
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "316.782764",
+          "transaction_count": 1125
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "297.787578",
+          "transaction_count": 450
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "272.710133",
+          "transaction_count": 601
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "258.386697",
+          "transaction_count": 987
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "243.485463",
+          "transaction_count": 432
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "231.048826",
+          "transaction_count": 741
+        }
+      ],
+      "dataset": "data/transactions_test.csv",
+      "rows_in_file": 10100,
+      "file_mb": 0.9,
+      "description": "локальный многопоточный режим local[*] (справочно; НЕ однопоточный)",
+      "process_wall_s": 26.971894782000163,
+      "client_peak_rss_mb": 1047.1,
+      "client_cpu_s": 54.09
+    },
+    {
+      "mode": "cluster",
+      "master": "spark://spark-master:7077",
+      "spark_version": "4.1.3",
+      "app_id": "app-20261019183213-0011",
+      "default_parallelism": 2,
+      "input_partitions": 1,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": "1g",
+      "executor_cores_conf": "2",
+      "cores_max_conf": "2",
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:38601",
+          "isActive": true,
+          "totalCores": 0,
+          "maxMemory": 455501414,
+          "totalTasks": 0,
+          "completedTasks": 0,
+          "failedTasks": 0,
+          "totalDuration": 27828,
+          "totalGCTime": 354,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "peakJVMHeapMemory": 212959680
+        },
+        {
+          "id": "0",
+          "hostPort": "172.18.0.4:42625",
+          "isActive": true,
+          "totalCores": 2,
+          "maxMemory": 455501414,
+          "totalTasks": 36,
+          "completedTasks": 36,
+          "failedTasks": 0,
+          "totalDuration": 8191,
+          "totalGCTime": 187,
+          "totalShuffleRead": 5280360,
+          "totalShuffleWrite": 5275398,
+          "peakJVMHeapMemory": 88512552
+        }
+      ],
+      "session_start_s": 6.420952072000091,
+      "timings_s": [
+        1.9805964420002056,
+        1.8143707179997364,
+        1.7526927019998766,
+        1.366580096999769,
+        1.5265648959998543
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 0.3632,
+        "executor_cpu_time_s": 0.3203726996,
+        "input_mb": 0.8556537628173828,
+        "shuffle_read_mb": 0.8392906188964844,
+        "shuffle_write_mb": 0.8385019302368164,
+        "tasks": 6.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "542.786324",
+          "transaction_count": 408
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "402.168804",
+          "transaction_count": 1271
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "339.053255",
+          "transaction_count": 1192
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "334.613858",
+          "transaction_count": 871
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "322.494302",
+          "transaction_count": 802
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "320.738056",
+          "transaction_count": 818
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "316.782764",
+          "transaction_count": 1125
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "297.787578",
+          "transaction_count": 450
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "272.710133",
+          "transaction_count": 601
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "258.386697",
+          "transaction_count": 987
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "243.485463",
+          "transaction_count": 432
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "231.048826",
+          "transaction_count": 741
+        }
+      ],
+      "dataset": "data/transactions_test.csv",
+      "rows_in_file": 10100,
+      "file_mb": 0.9,
+      "description": "Spark Standalone в Docker: все выделенные ядра Worker",
+      "process_wall_s": 30.839369824000187,
+      "client_peak_rss_mb": 753.6,
+      "client_cpu_s": 43.27
+    },
+    {
+      "mode": "cluster_1core",
+      "master": "spark://spark-master:7077",
+      "spark_version": "4.1.3",
+      "app_id": "app-20261019183244-0012",
+      "default_parallelism": 2,
+      "input_partitions": 1,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": "1g",
+      "executor_cores_conf": "1",
+      "cores_max_conf": "1",
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:39587",
+          "isActive": true,
+          "totalCores": 0,
+          "maxMemory": 455501414,
+          "totalTasks": 0,
+          "completedTasks": 0,
+          "failedTasks": 0,
+          "totalDuration": 28087,
+          "totalGCTime": 358,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "peakJVMHeapMemory": 97301808
+        },
+        {
+          "id": "0",
+          "hostPort": "172.18.0.4:43185",
+          "isActive": true,
+          "totalCores": 1,
+          "maxMemory": 455501414,
+          "totalTasks": 36,
+          "completedTasks": 36,
+          "failedTasks": 0,
+          "totalDuration": 8345,
+          "totalGCTime": 179,
+          "totalShuffleRead": 5280360,
+          "totalShuffleWrite": 5275398,
+          "peakJVMHeapMemory": 166078368
+        }
+      ],
+      "session_start_s": 6.393653056999938,
+      "timings_s": [
+        2.1755394020001404,
+        2.000983513999927,
+        1.692458170000009,
+        1.6897332489998007,
+        1.4721516889999293
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 0.37679999999999997,
+        "executor_cpu_time_s": 0.3027955790000001,
+        "input_mb": 0.8556537628173828,
+        "shuffle_read_mb": 0.8392906188964844,
+        "shuffle_write_mb": 0.8385019302368164,
+        "tasks": 6.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "542.786324",
+          "transaction_count": 408
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "402.168804",
+          "transaction_count": 1271
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "339.053255",
+          "transaction_count": 1192
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "334.613858",
+          "transaction_count": 871
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "322.494302",
+          "transaction_count": 802
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "320.738056",
+          "transaction_count": 818
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "316.782764",
+          "transaction_count": 1125
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "297.787578",
+          "transaction_count": 450
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "272.710133",
+          "transaction_count": 601
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "258.386697",
+          "transaction_count": 987
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "243.485463",
+          "transaction_count": 432
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "231.048826",
+          "transaction_count": 741
+        }
+      ],
+      "dataset": "data/transactions_test.csv",
+      "rows_in_file": 10100,
+      "file_mb": 0.9,
+      "description": "Spark Standalone в Docker, ограничение 1 ядро (накладные расходы без параллелизма)",
+      "process_wall_s": 31.44445731099995,
+      "client_peak_rss_mb": 688.7,
+      "client_cpu_s": 44.53
+    },
+    {
+      "mode": "local1",
+      "master": "local[1]",
+      "spark_version": "4.1.3",
+      "app_id": "local-1792434795754",
+      "default_parallelism": 1,
+      "input_partitions": 2,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": null,
+      "executor_cores_conf": null,
+      "cores_max_conf": null,
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:37325",
+          "isActive": true,
+          "totalCores": 1,
+          "maxMemory": 455501414,
+          "totalTasks": 42,
+          "completedTasks": 42,
+          "failedTasks": 0,
+          "totalDuration": 70590,
+          "totalGCTime": 1481,
+          "totalShuffleRead": 274613712,
+          "totalShuffleWrite": 274608648,
+          "peakJVMHeapMemory": 570835480
+        }
+      ],
+      "session_start_s": 4.422189517000334,
+      "timings_s": [
+        9.295271340999989,
+        9.155442095000126,
+        9.302977721999923,
+        9.046482859000207,
+        8.823493465999945
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 7.789199999999999,
+        "executor_cpu_time_s": 7.4627857078,
+        "input_mb": 42.82127571105957,
+        "shuffle_read_mb": 43.64867401123047,
+        "shuffle_write_mb": 43.64786911010742,
+        "tasks": 7.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "440.204043",
+          "transaction_count": 22257
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "418.478809",
+          "transaction_count": 67986
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "342.862138",
+          "transaction_count": 35728
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "334.544985",
+          "transaction_count": 23016
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "332.105579",
+          "transaction_count": 58287
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "311.606882",
+          "transaction_count": 30636
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "310.100154",
+          "transaction_count": 64572
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "299.577941",
+          "transaction_count": 43182
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "281.469439",
+          "transaction_count": 46410
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "267.732447",
+          "transaction_count": 26080
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "253.500828",
+          "transaction_count": 26580
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "238.355655",
+          "transaction_count": 40077
+        }
+      ],
+      "dataset": "data/transactions_medium.csv",
+      "rows_in_file": 505000,
+      "file_mb": 42.8,
+      "description": "локальный однопоточный режим local[1]: драйвер и единственный поток задач в одной JVM",
+      "process_wall_s": 73.79234723299942,
+      "client_peak_rss_mb": 1089.6,
+      "client_cpu_s": 111.96
+    },
+    {
+      "mode": "local_all",
+      "master": "local[*]",
+      "spark_version": "4.1.3",
+      "app_id": "local-1792434870044",
+      "default_parallelism": 4,
+      "input_partitions": 4,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": null,
+      "executor_cores_conf": null,
+      "cores_max_conf": null,
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:32859",
+          "isActive": true,
+          "totalCores": 4,
+          "maxMemory": 455501414,
+          "totalTasks": 90,
+          "completedTasks": 90,
+          "failedTasks": 0,
+          "totalDuration": 42454,
+          "totalGCTime": 1444,
+          "totalShuffleRead": 276234576,
+          "totalShuffleWrite": 276214470,
+          "peakJVMHeapMemory": 413989976
+        }
+      ],
+      "session_start_s": 4.5449183769997035,
+      "timings_s": [
+        5.109976796999945,
+        4.057597877000262,
+        3.6845948019999923,
+        3.745378399999936,
+        3.5575439430003826
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 10.097199999999999,
+        "executor_cpu_time_s": 7.824353608200002,
+        "input_mb": 43.12719535827637,
+        "shuffle_read_mb": 43.90630340576172,
+        "shuffle_write_mb": 43.90310764312744,
+        "tasks": 15.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "440.204043",
+          "transaction_count": 22257
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "418.478809",
+          "transaction_count": 67986
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "342.862138",
+          "transaction_count": 35728
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "334.544985",
+          "transaction_count": 23016
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "332.105579",
+          "transaction_count": 58287
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "311.606882",
+          "transaction_count": 30636
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "310.100154",
+          "transaction_count": 64572
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "299.577941",
+          "transaction_count": 43182
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "281.469439",
+          "transaction_count": 46410
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "267.732447",
+          "transaction_count": 26080
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "253.500828",
+          "transaction_count": 26580
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "238.355655",
+          "transaction_count": 40077
+        }
+      ],
+      "dataset": "data/transactions_medium.csv",
+      "rows_in_file": 505000,
+      "file_mb": 42.8,
+      "description": "локальный многопоточный режим local[*] (справочно; НЕ однопоточный)",
+      "process_wall_s": 46.23116934799964,
+      "client_peak_rss_mb": 1245.0,
+      "client_cpu_s": 121.53
+    },
+    {
+      "mode": "cluster",
+      "master": "spark://spark-master:7077",
+      "spark_version": "4.1.3",
+      "app_id": "app-20261019183516-0013",
+      "default_parallelism": 2,
+      "input_partitions": 2,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": "1g",
+      "executor_cores_conf": "2",
+      "cores_max_conf": "2",
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:43921",
+          "isActive": true,
+          "totalCores": 0,
+          "maxMemory": 455501414,
+          "totalTasks": 0,
+          "completedTasks": 0,
+          "failedTasks": 0,
+          "totalDuration": 55841,
+          "totalGCTime": 465,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "peakJVMHeapMemory": 156015072
+        },
+        {
+          "id": "0",
+          "hostPort": "172.18.0.4:44979",
+          "isActive": true,
+          "totalCores": 2,
+          "maxMemory": 455501414,
+          "totalTasks": 54,
+          "completedTasks": 54,
+          "failedTasks": 0,
+          "totalDuration": 65453,
+          "totalGCTime": 2668,
+          "totalShuffleRead": 275123406,
+          "totalShuffleWrite": 275113344,
+          "peakJVMHeapMemory": 381677528
+        }
+      ],
+      "session_start_s": 7.081124694999744,
+      "timings_s": [
+        6.556551525000032,
+        6.216691532999903,
+        6.219067549999636,
+        5.600576515999819,
+        5.748420582999643
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 8.360400000000002,
+        "executor_cpu_time_s": 7.5890522974,
+        "input_mb": 42.879387855529785,
+        "shuffle_read_mb": 43.72968769073486,
+        "shuffle_write_mb": 43.72808837890625,
+        "tasks": 9.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "440.204043",
+          "transaction_count": 22257
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "418.478809",
+          "transaction_count": 67986
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "342.862138",
+          "transaction_count": 35728
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "334.544985",
+          "transaction_count": 23016
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "332.105579",
+          "transaction_count": 58287
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "311.606882",
+          "transaction_count": 30636
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "310.100154",
+          "transaction_count": 64572
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "299.577941",
+          "transaction_count": 43182
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "281.469439",
+          "transaction_count": 46410
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "267.732447",
+          "transaction_count": 26080
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "253.500828",
+          "transaction_count": 26580
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "238.355655",
+          "transaction_count": 40077
+        }
+      ],
+      "dataset": "data/transactions_medium.csv",
+      "rows_in_file": 505000,
+      "file_mb": 42.8,
+      "description": "Spark Standalone в Docker: все выделенные ядра Worker",
+      "process_wall_s": 59.20903244500005,
+      "client_peak_rss_mb": 698.3,
+      "client_cpu_s": 46.58
+    },
+    {
+      "mode": "cluster_1core",
+      "master": "spark://spark-master:7077",
+      "spark_version": "4.1.3",
+      "app_id": "app-20261019183615-0014",
+      "default_parallelism": 2,
+      "input_partitions": 2,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": "1g",
+      "executor_cores_conf": "1",
+      "cores_max_conf": "1",
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:45869",
+          "isActive": true,
+          "totalCores": 0,
+          "maxMemory": 455501414,
+          "totalTasks": 0,
+          "completedTasks": 0,
+          "failedTasks": 0,
+          "totalDuration": 72236,
+          "totalGCTime": 445,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "peakJVMHeapMemory": 210731440
+        },
+        {
+          "id": "0",
+          "hostPort": "172.18.0.4:46221",
+          "isActive": true,
+          "totalCores": 1,
+          "maxMemory": 455501414,
+          "totalTasks": 54,
+          "completedTasks": 54,
+          "failedTasks": 0,
+          "totalDuration": 52408,
+          "totalGCTime": 787,
+          "totalShuffleRead": 275161134,
+          "totalShuffleWrite": 275151072,
+          "peakJVMHeapMemory": 368625608
+        }
+      ],
+      "session_start_s": 6.717356973000278,
+      "timings_s": [
+        9.04507277599987,
+        9.146394931999566,
+        8.541246898999816,
+        8.970097406000605,
+        8.709043601999838
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 7.357200000000001,
+        "executor_cpu_time_s": 7.0947115788,
+        "input_mb": 42.879387855529785,
+        "shuffle_read_mb": 43.735684394836426,
+        "shuffle_write_mb": 43.73408508300781,
+        "tasks": 9.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "440.204043",
+          "transaction_count": 22257
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "418.478809",
+          "transaction_count": 67986
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "342.862138",
+          "transaction_count": 35728
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "334.544985",
+          "transaction_count": 23016
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "332.105579",
+          "transaction_count": 58287
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "311.606882",
+          "transaction_count": 30636
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "310.100154",
+          "transaction_count": 64572
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "299.577941",
+          "transaction_count": 43182
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "281.469439",
+          "transaction_count": 46410
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "267.732447",
+          "transaction_count": 26080
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "253.500828",
+          "transaction_count": 26580
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "238.355655",
+          "transaction_count": 40077
+        }
+      ],
+      "dataset": "data/transactions_medium.csv",
+      "rows_in_file": 505000,
+      "file_mb": 42.8,
+      "description": "Spark Standalone в Docker, ограничение 1 ядро (накладные расходы без параллелизма)",
+      "process_wall_s": 75.61484245700012,
+      "client_peak_rss_mb": 705.7,
+      "client_cpu_s": 45.33
+    },
+    {
+      "mode": "local1",
+      "master": "local[1]",
+      "spark_version": "4.1.3",
+      "app_id": "local-1792435051345",
+      "default_parallelism": 1,
+      "input_partitions": 6,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": null,
+      "executor_cores_conf": null,
+      "cores_max_conf": null,
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:38911",
+          "isActive": true,
+          "totalCores": 1,
+          "maxMemory": 455501414,
+          "totalTasks": 78,
+          "completedTasks": 78,
+          "failedTasks": 0,
+          "totalDuration": 218280,
+          "totalGCTime": 5062,
+          "totalShuffleRead": 1115122368,
+          "totalShuffleWrite": 1115117112,
+          "peakJVMHeapMemory": 656804208
+        }
+      ],
+      "session_start_s": 4.7448820720001095,
+      "timings_s": [
+        34.25217975800024,
+        32.93042633500045,
+        32.98350728500009,
+        32.409355974999926,
+        35.28355364199979
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 31.681400000000007,
+        "executor_cpu_time_s": 30.4088399336,
+        "input_mb": 171.34291648864746,
+        "shuffle_read_mb": 177.24392700195312,
+        "shuffle_write_mb": 177.24309158325195,
+        "tasks": 13.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "438.255761",
+          "transaction_count": 90301
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "413.795975",
+          "transaction_count": 270754
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "345.018098",
+          "transaction_count": 139925
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "330.585731",
+          "transaction_count": 237683
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "327.733256",
+          "transaction_count": 91001
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "315.379552",
+          "transaction_count": 256796
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "313.629448",
+          "transaction_count": 122961
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "297.362564",
+          "transaction_count": 172888
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "280.498986",
+          "transaction_count": 189032
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "265.978392",
+          "transaction_count": 106453
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "249.908136",
+          "transaction_count": 104991
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "235.372584",
+          "transaction_count": 156895
+        }
+      ],
+      "dataset": "data/transactions.csv",
+      "rows_in_file": 2020000,
+      "file_mb": 171.0,
+      "description": "локальный однопоточный режим local[1]: драйвер и единственный поток задач в одной JVM",
+      "process_wall_s": 222.14140839399988,
+      "client_peak_rss_mb": 1167.3,
+      "client_cpu_s": 286.79
+    },
+    {
+      "mode": "local_all",
+      "master": "local[*]",
+      "spark_version": "4.1.3",
+      "app_id": "local-1792435273219",
+      "default_parallelism": 4,
+      "input_partitions": 6,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": null,
+      "executor_cores_conf": null,
+      "cores_max_conf": null,
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:33265",
+          "isActive": true,
+          "totalCores": 4,
+          "maxMemory": 455501414,
+          "totalTasks": 102,
+          "completedTasks": 102,
+          "failedTasks": 0,
+          "totalDuration": 117956,
+          "totalGCTime": 3879,
+          "totalShuffleRead": 1116364950,
+          "totalShuffleWrite": 1116344676,
+          "peakJVMHeapMemory": 979415880
+        }
+      ],
+      "session_start_s": 4.541253657000198,
+      "timings_s": [
+        17.875740833000236,
+        16.961995438000486,
+        16.062984064000375,
+        15.492182031999619,
+        15.949253863000195
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 50.4888,
+        "executor_cpu_time_s": 42.9866675468,
+        "input_mb": 171.34291648864746,
+        "shuffle_read_mb": 177.4414300918579,
+        "shuffle_write_mb": 177.43820762634277,
+        "tasks": 17.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "438.255761",
+          "transaction_count": 90301
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "413.795975",
+          "transaction_count": 270754
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "345.018098",
+          "transaction_count": 139925
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "330.585731",
+          "transaction_count": 237683
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "327.733256",
+          "transaction_count": 91001
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "315.379552",
+          "transaction_count": 256796
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "313.629448",
+          "transaction_count": 122961
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "297.362564",
+          "transaction_count": 172888
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "280.498986",
+          "transaction_count": 189032
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "265.978392",
+          "transaction_count": 106453
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "249.908136",
+          "transaction_count": 104991
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "235.372584",
+          "transaction_count": 156895
+        }
+      ],
+      "dataset": "data/transactions.csv",
+      "rows_in_file": 2020000,
+      "file_mb": 171.0,
+      "description": "локальный многопоточный режим local[*] (справочно; НЕ однопоточный)",
+      "process_wall_s": 121.15204003500003,
+      "client_peak_rss_mb": 1610.5,
+      "client_cpu_s": 359.03
+    },
+    {
+      "mode": "cluster",
+      "master": "spark://spark-master:7077",
+      "spark_version": "4.1.3",
+      "app_id": "app-20261019184314-0015",
+      "default_parallelism": 2,
+      "input_partitions": 6,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": "1g",
+      "executor_cores_conf": "2",
+      "cores_max_conf": "2",
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:34845",
+          "isActive": true,
+          "totalCores": 0,
+          "maxMemory": 455501414,
+          "totalTasks": 0,
+          "completedTasks": 0,
+          "failedTasks": 0,
+          "totalDuration": 139486,
+          "totalGCTime": 397,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "peakJVMHeapMemory": 175905696
+        },
+        {
+          "id": "0",
+          "hostPort": "172.18.0.4:45021",
+          "isActive": true,
+          "totalCores": 2,
+          "maxMemory": 455501414,
+          "totalTasks": 84,
+          "completedTasks": 84,
+          "failedTasks": 0,
+          "totalDuration": 209981,
+          "totalGCTime": 7337,
+          "totalShuffleRead": 1115009136,
+          "totalShuffleWrite": 1114998846,
+          "peakJVMHeapMemory": 841665328
+        }
+      ],
+      "session_start_s": 6.920697771999585,
+      "timings_s": [
+        20.369876269000088,
+        20.519947093000155,
+        18.73770620399955,
+        19.187487987000168,
+        18.909371206999822
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 31.546599999999994,
+        "executor_cpu_time_s": 29.5731181682,
+        "input_mb": 171.34291648864746,
+        "shuffle_read_mb": 177.2259292602539,
+        "shuffle_write_mb": 177.22429370880127,
+        "tasks": 14.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "438.255761",
+          "transaction_count": 90301
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "413.795975",
+          "transaction_count": 270754
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "345.018098",
+          "transaction_count": 139925
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "330.585731",
+          "transaction_count": 237683
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "327.733256",
+          "transaction_count": 91001
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "315.379552",
+          "transaction_count": 256796
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "313.629448",
+          "transaction_count": 122961
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "297.362564",
+          "transaction_count": 172888
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "280.498986",
+          "transaction_count": 189032
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "265.978392",
+          "transaction_count": 106453
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "249.908136",
+          "transaction_count": 104991
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "235.372584",
+          "transaction_count": 156895
+        }
+      ],
+      "dataset": "data/transactions.csv",
+      "rows_in_file": 2020000,
+      "file_mb": 171.0,
+      "description": "Spark Standalone в Docker: все выделенные ядра Worker",
+      "process_wall_s": 142.85905143500077,
+      "client_peak_rss_mb": 752.9,
+      "client_cpu_s": 48.99
+    },
+    {
+      "mode": "cluster_1core",
+      "master": "spark://spark-master:7077",
+      "spark_version": "4.1.3",
+      "app_id": "app-20261019184537-0016",
+      "default_parallelism": 2,
+      "input_partitions": 6,
+      "shuffle_partitions": 8,
+      "max_partition_bytes": "32m",
+      "executor_memory_conf": "1g",
+      "executor_cores_conf": "1",
+      "cores_max_conf": "1",
+      "driver_memory_conf": "1g",
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "spark-client:44029",
+          "isActive": true,
+          "totalCores": 0,
+          "maxMemory": 455501414,
+          "totalTasks": 0,
+          "completedTasks": 0,
+          "failedTasks": 0,
+          "totalDuration": 220969,
+          "totalGCTime": 438,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "peakJVMHeapMemory": 193258840
+        },
+        {
+          "id": "0",
+          "hostPort": "172.18.0.4:41353",
+          "isActive": true,
+          "totalCores": 1,
+          "maxMemory": 455501414,
+          "totalTasks": 84,
+          "completedTasks": 84,
+          "failedTasks": 0,
+          "totalDuration": 199255,
+          "totalGCTime": 5039,
+          "totalShuffleRead": 1115132436,
+          "totalShuffleWrite": 1115122146,
+          "peakJVMHeapMemory": 473296672
+        }
+      ],
+      "session_start_s": 7.494718886000555,
+      "timings_s": [
+        33.74355432399989,
+        33.68545503699988,
+        34.02217614900019,
+        33.346731655999974,
+        33.26087912799994
+      ],
+      "spark_metrics_per_run": {
+        "executor_run_time_s": 31.622000000000003,
+        "executor_cpu_time_s": 30.2474919022,
+        "input_mb": 171.34291648864746,
+        "shuffle_read_mb": 177.24552726745605,
+        "shuffle_write_mb": 177.24389171600342,
+        "tasks": 14.0
+      },
+      "result": [
+        {
+          "city": "Zurich",
+          "avg_amount_eur": "438.255761",
+          "transaction_count": 90301
+        },
+        {
+          "city": "London",
+          "avg_amount_eur": "413.795975",
+          "transaction_count": 270754
+        },
+        {
+          "city": "Amsterdam",
+          "avg_amount_eur": "345.018098",
+          "transaction_count": 139925
+        },
+        {
+          "city": "Paris",
+          "avg_amount_eur": "330.585731",
+          "transaction_count": 237683
+        },
+        {
+          "city": "Dublin",
+          "avg_amount_eur": "327.733256",
+          "transaction_count": 91001
+        },
+        {
+          "city": "Berlin",
+          "avg_amount_eur": "315.379552",
+          "transaction_count": 256796
+        },
+        {
+          "city": "Vienna",
+          "avg_amount_eur": "313.629448",
+          "transaction_count": 122961
+        },
+        {
+          "city": "Rome",
+          "avg_amount_eur": "297.362564",
+          "transaction_count": 172888
+        },
+        {
+          "city": "Madrid",
+          "avg_amount_eur": "280.498986",
+          "transaction_count": 189032
+        },
+        {
+          "city": "Lisbon",
+          "avg_amount_eur": "265.978392",
+          "transaction_count": 106453
+        },
+        {
+          "city": "Prague",
+          "avg_amount_eur": "249.908136",
+          "transaction_count": 104991
+        },
+        {
+          "city": "Warsaw",
+          "avg_amount_eur": "235.372584",
+          "transaction_count": 156895
+        }
+      ],
+      "dataset": "data/transactions.csv",
+      "rows_in_file": 2020000,
+      "file_mb": 171.0,
+      "description": "Spark Standalone в Docker, ограничение 1 ядро (накладные расходы без параллелизма)",
+      "process_wall_s": 224.65095823200045,
+      "client_peak_rss_mb": 717.2,
+      "client_cpu_s": 52.1
+    }
+  ]
+}
