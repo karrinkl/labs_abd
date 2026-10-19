@@ -205,6 +205,12 @@ def run_parent(a):
 
     out_dir = Path(a.out)
     out_dir.mkdir(parents=True, exist_ok=True)
+    probe = out_dir / ".write_test"
+    try:  # проверить права на запись ДО многоминутных замеров
+        probe.write_text("ok", encoding="utf-8")
+        probe.unlink()
+    except OSError as exc:
+        sys.exit(f"Нет прав на запись в {out_dir}: {exc}. Проверьте владельца каталога (ls -ld {out_dir}).")
     mode_defs = modes()
     started = datetime.now(timezone.utc).isoformat(timespec="seconds")
     cluster = master_state() if any(m.startswith("cluster") for m in a.modes) else None
@@ -245,6 +251,9 @@ def run_parent(a):
                           "client_peak_rss_mb": round(sampler.peak_rss_mb, 1),
                           "client_cpu_s": round(sampler.cpu_s, 2)})
             runs.append(child)
+            # сохранить результат режима сразу: сбой на следующих шагах его не потеряет
+            part = out_dir / f"run_{Path(data).stem}_{mode}.json"
+            part.write_text(json.dumps(child, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # ---- сверка результатов и сводка
     summary = []
