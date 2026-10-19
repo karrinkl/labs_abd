@@ -1,0 +1,24 @@
+# Окружение и кэш Python
+.venv/
+__pycache__/
+*.pyc
+
+# Локальные настройки (UID/GID, ресурсы) — шаблон хранится в .env.example
+.env
+
+# Сгенерированные данные (воспроизводятся generate_data.py по seed)
+data/*
+!data/.gitkeep
+
+# Результаты запусков студента (контрольный прогон хранится в results/reference_run/)
+results/*
+!results/.gitkeep
+!results/reference_run/
+!results/screenshots/
+
+# Служебные файлы Spark
+spark-warehouse/
+metastore_db/
+derby.log
+*.crc
+build/

@@ -1,0 +1,119 @@
+# Локальный кластер Apache Spark Standalone для ЛР № 2 (вариант № 2).
+#
+#   spark-master    — Spark Master (менеджер ресурсов Standalone), UI :8080
+#   spark-worker    — Spark Worker, предоставляет ядра и память executors, UI :8081
+#   spark-worker-2  — второй Worker (необязательный, профиль "two-workers"), UI :8082
+#   spark-client    — контейнер-клиент: здесь запускаются генератор, spark-submit
+#                     (драйвер приложения, Spark UI :4040) и benchmark.py
+#
+# Все сервисы используют один официальный образ Spark (версия фиксируется в .env),
+# поэтому версии Spark, Java и Python у драйвера и executors совпадают.
+# Каталог проекта монтируется в /opt/project во ВСЕ контейнеры: executors читают
+# data/*.csv и пишут результаты по тем же путям, что и драйвер.
+#
+# Процессы работают от UID/GID пользователя хоста (HOST_UID/HOST_GID в .env),
+# а /etc/passwd и /etc/group хоста монтируются только для чтения — без этого
+# Hadoop-библиотеки Spark не могут определить имя пользователя, а файлы в data/
+# и results/ принадлежали бы чужому UID.
+
+x-spark-common: &spark-common
+  image: ${SPARK_IMAGE:-spark:4.1.3-scala2.13-java21-python3-ubuntu}
+  user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+  working_dir: /opt/project
+  volumes:
+    - ./:/opt/project
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
+  environment: &spark-env
+    SPARK_NO_DAEMONIZE: "true"
+    HOME: /tmp
+  networks: [spark-net]
+
+services:
+  spark-master:
+    <<: *spark-common
+    container_name: spark-master
+    hostname: spark-master
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+      --host spark-master --port 7077 --webui-port 8080
+    ports:
+      - "8080:8080"   # Spark Master Web UI
+      - "7077:7077"   # RPC Master (для подключения извне Docker; внутри сети не нужен)
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/json/', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  spark-worker:
+    <<: *spark-common
+    container_name: spark-worker
+    hostname: spark-worker
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077
+      --cores ${SPARK_WORKER_CORES:-2} --memory ${SPARK_WORKER_MEMORY:-2g}
+      --webui-port 8081 --work-dir /tmp/spark-worker
+    environment:
+      <<: *spark-env
+      SPARK_WORKER_DIR: /tmp/spark-worker
+    ports:
+      - "8081:8081"   # Spark Worker Web UI
+    depends_on:
+      spark-master:
+        condition: service_healthy
+
+  spark-worker-2:
+    <<: *spark-common
+    container_name: spark-worker-2
+    hostname: spark-worker-2
+    profiles: ["two-workers"]
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077
+      --cores ${SPARK_WORKER_CORES:-2} --memory ${SPARK_WORKER_MEMORY:-2g}
+      --webui-port 8082 --work-dir /tmp/spark-worker
+    environment:
+      <<: *spark-env
+      SPARK_WORKER_DIR: /tmp/spark-worker
+    ports:
+      - "8082:8082"
+    depends_on:
+      spark-master:
+        condition: service_healthy
+
+  spark-client:
+    <<: *spark-common
+    container_name: spark-client
+    hostname: spark-client
+    command: ["sleep", "infinity"]
+    environment:
+      <<: *spark-env
+      PATH: /opt/spark/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      PYTHONPATH: /opt/spark/python:/opt/spark/python/lib/py4j-0.10.9.9-src.zip
+      PYTHONDONTWRITEBYTECODE: "1"
+      SPARK_MASTER_URL: spark://spark-master:7077
+      SPARK_MASTER_UI: http://spark-master:8080
+      SPARK_DRIVER_HOST: spark-client
+      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-1g}
+      SPARK_EXECUTOR_MEMORY: ${SPARK_EXECUTOR_MEMORY:-1g}
+      SPARK_EXECUTOR_CORES: ${SPARK_EXECUTOR_CORES:-2}
+      SPARK_TOTAL_EXECUTOR_CORES: ${SPARK_TOTAL_EXECUTOR_CORES:-2}
+      SPARK_SHUFFLE_PARTITIONS: ${SPARK_SHUFFLE_PARTITIONS:-8}
+      SPARK_MAX_PARTITION_BYTES: ${SPARK_MAX_PARTITION_BYTES:-32m}
+      AMOUNT_THRESHOLD: ${AMOUNT_THRESHOLD:-100}
+      DATA_START: ${DATA_START:-2025-01-01}
+      DATA_END: ${DATA_END:-2026-01-01}
+      SEED: ${SEED:-42}
+      BENCH_REPEATS: ${BENCH_REPEATS:-5}
+    ports:
+      - "4040:4040"   # Spark UI драйвера (активное приложение)
+      - "4041:4041"   # если 4040 занят другим приложением
+    depends_on:
+      spark-master:
+        condition: service_healthy
+
+networks:
+  spark-net:
+    name: spark-net
